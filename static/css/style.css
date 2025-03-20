@@ -62,28 +62,9 @@ body {
     display: block;
 }
 
+/* base bagian buat konten */
 .content {
     padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-}
-.button {
-    background-color: #7B68EE;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.button:hover {
-    background-color: #6A5ACD;
-}
-
-.main-title {
-    text-align: center;
-    margin-top: 100px;
-    font-size: 28px;
-    font-weight: bold;
 }
 
 /* style home.html */
@@ -101,8 +82,10 @@ body {
 }
 
 .main-title {
+    text-align: center;
     font-size: 32px;
     font-weight: bold;
+    margin-top: 100px;
     margin-bottom: 15px;
     color: #333;
 }
@@ -152,15 +135,12 @@ body {
 
 /* style upload.html */
 .upload-container {
-    max-width: 800px;
-    margin: 30px auto;
+    max-width: auto;
+    margin: auto;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.upload-form {
-    margin-top: 20px;
 }
 .error-message {
     color: red;
@@ -191,6 +171,9 @@ body {
     background-color: #e9ecef;
     padding: 20px;
     border-radius: 5px;
+}
+.tabel-hasil{
+    padding: 20px;
 }
 
 /* style about.html */
@@ -254,7 +237,7 @@ body {
 
 /* style help.html */   
 .info-section {
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 }
 
 .info-card {
@@ -305,100 +288,4 @@ body {
     margin: 0;
     color: #666;
     font-size: 14px;
-}
-
-.dashboard-preview {
-    margin-bottom: 40px;
-}
-
-.dashboard-image {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-}
-
-.chart-placeholder {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.chart-item {
-    background-color: white;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.chart-item.wide {
-    grid-column: span 2;
-}
-
-.chart-header {
-    background-color: #f0f0f0;
-    padding: 10px 15px;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 1px solid #ddd;
-}
-
-.chart-body {
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rsrp-chart {
-    background: linear-gradient(to right, #FF6B6B, #FF8E53, #FFCB70, #6FCF97);
-    position: relative;
-    overflow: hidden;
-}
-
-.rsrp-chart:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%);
-    clip-path: polygon(0 40%, 10% 35%, 20% 40%, 30% 30%, 40% 45%, 50% 25%, 60% 40%, 70% 20%, 80% 35%, 90% 15%, 100% 40%, 100% 100%, 0 100%);
-}
-
-.sinr-chart {
-    background: linear-gradient(to right, #FF6B6B, #FF8E53, #FFCB70, #6FCF97);
-    position: relative;
-    overflow: hidden;
-}
-
-.sinr-chart:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%);
-    clip-path: polygon(0 60%, 10% 45%, 20% 55%, 30% 20%, 40% 45%, 50% 15%, 60% 50%, 70% 30%, 80% 45%, 90% 25%, 100% 50%, 100% 100%, 0 100%);
-}
-
-.throughput-chart {
-    position: relative;
-    background: linear-gradient(to right, #FAFAFA, #FAFAFA);
-    overflow: hidden;
-}
-
-.throughput-chart:before {
-    content: '';
-    position: absolute;
-    top: 30%;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: rgba(123, 104, 238, 0.4);
-    clip-path: polygon(0 40%, 10% 35%, 20% 30%, 30% 50%, 40% 25%, 50% 45%, 60% 20%, 70% 50%, 80% 25%);
 }

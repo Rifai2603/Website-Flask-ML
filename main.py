@@ -28,7 +28,7 @@ def home():
 @app.route("/upload", methods=[ "GET", "POST"])
 def upload_file():
     if request.method == "GET":
-        if 'analysis_result' in session:
+        if 'analysis_result_table' in session:
             return render_template("upload.html", 
                                   data=session['analysis_result_table'], 
                                   ringkasan=session['analysis_summary'],
@@ -142,6 +142,8 @@ def upload_file():
             session['analysis_summary'] = ringkasan
             session['site_id'] = site_id
             session['result_filepath'] = result_filepath
+
+            #return redirect(url_for('upload_file'))
 
             return render_template("result.html", data=table_html, ringkasan=ringkasan, site_id=site_id, show_result=True)
 
