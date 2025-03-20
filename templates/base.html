@@ -1,0 +1,36 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Network Optimizer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <div class="navbar">
+            <a href="{{ url_for('home') }}" {% if request.path == url_for('home') %}class="active"{% endif %}>Home</a>
+            <a href="{{ url_for('upload_file') }}" {% if request.path == url_for('upload_file') %}class="active"{% endif %}>Upload File</a>
+            
+            <div class="dropdown">
+                <a href="#" {% if '/parameter4g' in request.path %}class="active"{% endif %}>Parameter 4G</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('rsrp') }}" {% if request.path == url_for('rsrp') %}class="active"{% endif %}>RSRP</a>
+                    <a href="{{ url_for('sinr') }}" {% if request.path == url_for('sinr') %}class="active"{% endif %}>SINR</a>
+                    <a href="{{ url_for('throughput_dl') }}" {% if request.path == url_for('throughput_dl') %}class="active"{% endif %}>Throughput DL</a>
+                    <a href="{{ url_for('throughput_ul') }}" {% if request.path == url_for('throughput_ul') %}class="active"{% endif %}>Throughput UL</a>
+                </div>
+            </div>
+            
+            <a href="{{ url_for('help') }}" {% if request.path == url_for('help') %}class="active"{% endif %}>Help</a>
+            <a href="{{ url_for('about') }}" {% if request.path == url_for('about') %}class="active"{% endif %}>About</a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="upload-container">
+        <h2 class="text-center mb-4">Upload File Data Jaringan</h2>
+        
+        <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="siteId">Site ID</label>
+                        <input type="text" class="form-control" id="siteId" name="siteId">
+                        <div id="siteIdError" class="error-message">Site ID wajib diisi</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="alamatSite">Alamat Site</label>
+                        <input type="text" class="form-control" id="alamatSite" name="alamatSite">
+                        <div id="alamatSiteError" class="error-message">Alamat Site wajib diisi</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group mt-4">
+                <label for="fileUpload">Upload File CSV</label>
+                <input type="file" class="form-control" id="fileUpload" name="file" accept=".csv" required>
+                <div class="file-info">*File yang diunggah harus berformat .csv dengan ukuran maksimal 10 MB</div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button type="submit" id="analyzeBtn" class="btn-analisa">Analisa</button>
+            </div>
+        </form>
+        
+        <div class="results-preview mt-5">
+            <h3 class="text-center mb-3">Rekomendasi Optimasi Jaringan yang diberikan</h3>
+            <p class="text-center text-muted">Hasil analisis akan ditampilkan di sini setelah file diproses</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('uploadForm');
+            const siteIdInput = document.getElementById('siteId');
+            const alamatSiteInput = document.getElementById('alamatSite');
+            const fileInput = document.getElementById('fileUpload');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            const siteIdError = document.getElementById('siteIdError');
+            const alamatSiteError = document.getElementById('alamatSiteError');
+
+            // Validasi form saat submit
+            form.addEventListener('submit', function(event) {
+                let isValid = true;
+                
+                // Validasi Site ID
+                if (!siteIdInput.value.trim()) {
+                    siteIdError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    siteIdError.style.display = 'none';
+                }
+                
+                // Validasi Alamat Site
+                if (!alamatSiteInput.value.trim()) {
+                    alamatSiteError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    alamatSiteError.style.display = 'none';
+                }
+
+                // Jika validasi gagal, hentikan pengiriman form
+                if (!isValid) {
+                    event.preventDefault(); // Ini yang penting - mencegah form dikirim!
+                }
+            });
+
+            // Validasi file sebelum upload
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    const fileSize = this.files[0].size / 1024 / 1024; // ukuran dalam MB
+                    if (fileSize > 10) {
+                        alert('Ukuran file melebihi batas maksimal 10 MB');
+                        this.value = '';
+                    }
+                }
+            });
+
+            // Validasi saat input berubah
+            siteIdInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    siteIdError.style.display = 'none';
+                }
+            });
+            
+            alamatSiteInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    alamatSiteError.style.display = 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %} 
