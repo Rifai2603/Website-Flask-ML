@@ -10,15 +10,23 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="siteId">Site ID</label>
-                        <input type="text" class="form-control" id="siteId" name="siteId">
-                        <div id="siteIdError" class="error-message">Site ID wajib diisi</div>
+                        <input type="text" class="form-control" id="siteId" name="siteId" value="{{ site_id if site_id else '' }}">
+                        {% if errors and errors.siteId %}
+                            <div class="error-message" style="display: block;">{{ errors.siteId }}</div>
+                        {% else %}
+                            <div id="siteIdError" class="error-message">Site ID wajib diisi</div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="alamatSite">Alamat Site</label>
-                        <input type="text" class="form-control" id="alamatSite" name="alamatSite">
-                        <div id="alamatSiteError" class="error-message">Alamat Site wajib diisi</div>
+                        <input type="text" class="form-control" id="alamatSite" name="alamatSite" value="{{ alamat_site if alamat_site else '' }}">
+                        {% if errors and errors.alamatSite %}
+                            <div class="error-message" style="display: block;">{{ errors.alamatSite }}</div>
+                        {% else %}
+                            <div id="alamatSiteError" class="error-message">Alamat Site wajib diisi</div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -27,6 +35,9 @@
                 <label for="fileUpload">Upload File CSV</label>
                 <input type="file" class="form-control" id="fileUpload" name="file" accept=".csv" required>
                 <div class="file-info">*File yang diunggah harus berformat .csv dengan ukuran maksimal 10 MB</div>
+                {% if error %}
+                    <div class="error-message" style="display: block;">{{ error }}</div>
+                {% endif %}
             </div>
             
             <div class="text-center mt-4">
@@ -53,6 +64,10 @@
             const siteIdError = document.getElementById('siteIdError');
             const alamatSiteError = document.getElementById('alamatSiteError');
 
+            // Sembunyikan pesan error pada awalnya
+            if (siteIdError) siteIdError.style.display = 'none';
+            if (alamatSiteError) alamatSiteError.style.display = 'none';
+
             // Validasi form saat submit
             form.addEventListener('submit', function(event) {
                 let isValid = true;
@@ -73,35 +88,51 @@
                     alamatSiteError.style.display = 'none';
                 }
 
+                // Validasi file
+                if (fileInput && fileInput.files.length === 0) {
+                    alert('Pilih file CSV terlebih dahulu');
+                    isValid = false;
+                }
+
                 // Jika validasi gagal, hentikan pengiriman form
                 if (!isValid) {
                     event.preventDefault(); // Ini yang penting - mencegah form dikirim!
+                } else {
+                    // Tampilkan loading indicator saat form valid
+                    analyzeBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menganalisa...';
+                    analyzeBtn.disabled = true;
                 }
             });
 
             // Validasi file sebelum upload
-            fileInput.addEventListener('change', function() {
-                if (this.files && this.files.length > 0) {
-                    const fileSize = this.files[0].size / 1024 / 1024; // ukuran dalam MB
-                    if (fileSize > 10) {
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    if (this.files && this.files.length > 0) {
+                        const fileSize = this.files[0].size / 1024 / 1024; // ukuran dalam MB
+                        if (fileSize > 10) {
                         alert('Ukuran file melebihi batas maksimal 10 MB');
                         this.value = '';
+                        }
                     }
-                }
-            });
+                });
+            }
 
             // Validasi saat input berubah
-            siteIdInput.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    siteIdError.style.display = 'none';
-                }
-            });
+            if (siteIdInput) {
+                siteIdInput.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        if (siteIdError) siteIdError.style.display = 'none';
+                    }
+                });
+            }
             
-            alamatSiteInput.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    alamatSiteError.style.display = 'none';
-                }
-            });
+            if (alamatSiteInput) {
+                alamatSiteInput.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        if (alamatSiteError) alamatSiteError.style.display = 'none';
+                    }
+                });
+            }
         });
     </script>
 {% endblock %} 

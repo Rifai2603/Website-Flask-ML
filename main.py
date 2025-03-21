@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, url_for, send_file, session, redirect
+from flask_session import Session
 import pandas as pd
 import joblib
 import os
 import secrets
+
 
 app = Flask(__name__)
 # Tambahkan secret key untuk session
@@ -15,28 +17,59 @@ rf_model_c = joblib.load('models/rf_model_c.pkl')
 encoder = joblib.load('models/encoder.pkl')
 rf_model_r = joblib.load('models/rf_model_r.pkl')
 
+# Konfigurasi untuk session server-side
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = "flask_session"  # Direktori untuk menyimpan file session
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+Session(app)  # Inisialisasi session server-side
+
 UPLOAD_FOLDER = "uploads"
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+RESULT_FOLDER = "results"  # Folder baru untuk menyimpan hasil analisis
+
+# Buat direktori jika belum ada
+for folder in [UPLOAD_FOLDER, RESULT_FOLDER]:
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["RESULT_FOLDER"] = RESULT_FOLDER
 
 @app.route("/")
 def home():
     return render_template("home.html")
 
-@app.route("/upload", methods=[ "GET", "POST"])
+@app.route("/upload", methods=["GET","POST"])
 def upload_file():
+    # Jika metode GET
     if request.method == "GET":
-        if 'analysis_result_table' in session:
-            return render_template("upload.html", 
-                                  data=session['analysis_result_table'], 
-                                  ringkasan=session['analysis_summary'],
-                                  site_id=session['site_id'],
-                                  show_result=True)
-        
-        return render_template("upload.html", show_result=False)
-    
+        # Periksa apakah ada hasil analisis di session
+        if session.get('analysis_id') and not session.get('clear_results', False):
+            # Jika ada hasil dan belum di-clear, tampilkan halaman hasil
+            site_id = session.get('site_id', '')
+            alamat_site = session.get('alamat_site', '')
+            ringkasan = session.get('ringkasan', '')
+            
+            # Membaca hasil dari file
+            result_filepath = os.path.join(app.config["RESULT_FOLDER"], f"{session['analysis_id']}.csv")
+            if os.path.exists(result_filepath):
+                df = pd.read_csv(result_filepath)
+                data_table = df[["Longitude", "Latitude", "RSRP(dBm)", "SINR(dB)", 
+                               "Throughput Downlink(Kbps)", "Throughput Uplink(Kbps)", 
+                               "Jenis Rekomendasi Optimasi"]].to_html(classes="table", index=False)
+            else:
+                data_table = "<p>Data tidak tersedia</p>"
+            
+            return render_template('result.html', 
+                                  site_id=site_id, 
+                                  alamat_site=alamat_site,
+                                  ringkasan=ringkasan, 
+                                  data=data_table)
+        else:
+            # Jika tidak ada hasil atau sudah di-clear, tampilkan form upload
+            session['clear_results'] = False
+            return render_template('upload.html')
+
     if request.method == "POST":
         site_id = request.form.get("siteId", "")
         alamat_site = request.form.get("alamatSite", "")
@@ -59,7 +92,7 @@ def upload_file():
         
         if file:
             if not file.filename.endswith('.csv'):
-                return "File harus berformat CSV"
+                return render_template("upload.html", error="File harus berformat CSV")
 
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filepath)
@@ -132,44 +165,42 @@ def upload_file():
             # Buat kalimat ringkasan
             ringkasan = f"Site ID {site_id} yang beralamat di {alamat_site} diperlukan optimasi {rekomendasi_terbanyak}"
 
+            # Buat ID unik untuk analisis ini
+            analysis_id = f"{site_id}_{secrets.token_hex(8)}"
+
             # Simpan hasil ke CSV untuk ditampilkan di halaman web
-            result_filepath = os.path.join(app.config["UPLOAD_FOLDER"], "result.csv")
+            result_filepath = os.path.join(app.config["RESULT_FOLDER"], f"{analysis_id}.csv")
             df.to_csv(result_filepath, index=False)
 
-            #Simpan hasil analisis dalam session
-            table_html = df[["Longitude", "Latitude", "RSRP(dBm)", "SINR(dB)", "Throughput Downlink(Kbps)", "Throughput Uplink(Kbps)", "Jenis Rekomendasi Optimasi"]].to_html(classes="table", index=False)
-            session['analysis_result_table'] = table_html
-            session['analysis_summary'] = ringkasan
+            # Simpan hanya metadata di session
+            session['analysis_id'] = analysis_id
             session['site_id'] = site_id
-            session['result_filepath'] = result_filepath
+            session['alamat_site'] = alamat_site
+            session['ringkasan'] = ringkasan
+            session['clear_results'] = False
 
-            #return redirect(url_for('upload_file'))
+            return redirect(url_for('upload_file'))
 
-            return render_template("result.html", data=table_html, ringkasan=ringkasan, site_id=site_id, show_result=True)
+            #return render_template("result.html", data=table_html, ringkasan=ringkasan, site_id=site_id, show_result=True)
 
 #Menghapus analisa kembali seperti awal (session jadi kosong)
 @app.route("/clear_analysis")
 def clear_analysis():
-    # Hapus hasil analisis dari session
-    if 'analysis_result_table' in session:
-        session.pop('analysis_result_table')
-    if 'analysis_summary' in session:
-        session.pop('analysis_summary')
-    if 'site_id' in session:
-        session.pop('site_id')
-    if 'result_filepath' in session:
-        session.pop('result_filepath')
-    
-    # Kembali ke halaman upload
-    return redirect(url_for('upload_file'))
+    # Set flag untuk menampilkan form upload
+    session['clear_results'] = True
 
+    # Hapus session data yang tidak diperlukan
+    for key in ['analysis_id', 'site_id', 'alamat_site', 'ringkasan']:
+        session.pop(key, None)
+
+    return redirect(url_for('upload_file'))
 
 @app.route("/download/<site_id>")
 def download_result(site_id):
-    if 'result_filepath' in session:
-        download_filepath = session['result_filepath']
+    if 'analysis_id' in session:
+        download_filepath = os.path.join(app.config["RESULT_FOLDER"], f"{session['analysis_id']}.csv")
     else:
-        download_filepath = os.path.join(app.config["UPLOAD_FOLDER"], f"result.csv")
+        return "Tidak ada data untuk diunduh", 404
 
     if os.path.exists(download_filepath):
         # Baca file CSV original
@@ -186,7 +217,7 @@ def download_result(site_id):
         filtered_df.to_csv(temp_filepath, index=False)
         
         # Download file
-        return_value = send_file(temp_filepath, as_attachment=True, download_name=f"hasil_analisis_site {site_id}.csv")
+        return_value = send_file(temp_filepath, as_attachment=True, download_name=f"Hasil_Analisis_Site {site_id}.csv")
         
         return return_value
     else:
