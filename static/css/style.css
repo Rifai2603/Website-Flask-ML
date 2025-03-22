@@ -1,4 +1,7 @@
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -10,12 +13,33 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+.footer {
+    background-color: #f8f9fa;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    border-top: 1px solid #e7e7e7;
+    color: #6c757d;
+    font-size: 14px;
+    z-index: 100;
+}
+
+.footer a {
+    color: #6c757d;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
 .navbar {
     display: flex;
     font-family: inter;
     font-weight: bold;
 }
-
 .navbar a {
     color: white;
     text-decoration: none;
@@ -64,7 +88,10 @@ body {
 
 /* base bagian buat konten */
 .content {
+    flex: 1;
     padding: 20px;
+    padding-bottom: 80px;
+    min-height: calc(100vh - 150px);
 }
 
 /* style home.html */
@@ -288,4 +315,21 @@ body {
     margin: 0;
     color: #666;
     font-size: 14px;
+}
+
+
+/* Page RSRP.html */
+.info-card{
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+.bg-normal {
+    background-color: #b6db8f; /* Warna hijau muda */
 }

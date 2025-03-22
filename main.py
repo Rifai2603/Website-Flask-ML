@@ -181,8 +181,6 @@ def upload_file():
 
             return redirect(url_for('upload_file'))
 
-            #return render_template("result.html", data=table_html, ringkasan=ringkasan, site_id=site_id, show_result=True)
-
 #Menghapus analisa kembali seperti awal (session jadi kosong)
 @app.route("/clear_analysis")
 def clear_analysis():

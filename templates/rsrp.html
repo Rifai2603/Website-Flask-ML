@@ -1,9 +1,211 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>Reference Signal Received Power (RSRP)</h2>
-    <div class="info-box">
-        <p>Informasi tentang parameter RSRP untuk optimasi jaringan 4G.</p>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1 class="section-title">Reference Signal Received Power (RSRP)</h1>
+            <p class="text-center subtitle">Informasi tentang parameter RSRP untuk optimasi jaringan 4G</p>
+        </div>
     </div>
+
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <div class="info-card">
+                <h3>Apa itu RSRP?</h3>
+                <p>RSRP (Reference Signal Received Power) adalah pengukuran kekuatan sinyal dalam jaringan LTE yang menunjukkan kekuatan sinyal referensi yang diterima oleh perangkat pengguna dari sel jaringan. RSRP merupakan indikator utama untuk mengevaluasi kualitas cakupan jaringan 4G.</p>
+                
+                <h3 class="mt-4">Mengapa RSRP Penting?</h3>
+                <p>RSRP berfungsi sebagai indikator utama untuk:</p>
+                <ul>
+                    <li>Mengukur kekuatan sinyal yang diterima dari sel jaringan</li>
+                    <li>Menentukan handover antar sel</li>
+                    <li>Menilai cakupan dan kualitas jaringan 4G</li>
+                    <li>Mengidentifikasi area dengan cakupan yang buruk</li>
+                    <li>Membantu optimasi penempatan antena</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <!-- gauge/meter RSRP -->
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <defs>
+                            <linearGradient id="rsrpGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#dc3545" />
+                                <stop offset="40%" style="stop-color:#ffc107" />
+                                <stop offset="70%" style="stop-color:#0dcaf0" />
+                                <stop offset="100%" style="stop-color:#198754" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Lingkaran background -->
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#e0e0e0" stroke-width="10" />
+                        <!-- Arc berwarna -->
+                        <path d="M 10 60 A 50 50 0 1 1 110 60" fill="none" stroke="url(#rsrpGradient)" stroke-width="10" stroke-linecap="round" />
+                        <!-- Teks di tengah -->
+                        <text x="60" y="55" text-anchor="middle" font-size="12" font-weight="bold">RSRP</text>
+                        <text x="60" y="75" text-anchor="middle" font-size="10">-140 → -44 dBm</text>
+                    </svg>
+                </div>
+                <h3>Skala Nilai RSRP</h3>
+                <p>RSRP diukur dalam dBm (decibel milliwatts) dan biasanya berkisar antara -140 dBm hingga -44 dBm.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Kualitas Sinyal</th>
+                            <th>Nilai RSRP (dBm)</th>
+                            <th>Interpretasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge bg-primary">Sangat Baik</span></td>
+                            <td>≥ -85</td>
+                            <td>Sinyal sangat kuat, kualitas koneksi optimal</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-success">Baik</span></td>
+                            <td>≥ -95 hingga -85</td>
+                            <td>Sinyal kuat, kualitas koneksi baik</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-normal">Sedang</span></td>
+                            <td>≥ -100 hingga -95</td>
+                            <td>Sinyal cukup, mungkin terjadi penurunan kecepatan</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-warning">Buruk</span></td>
+                            <td>≥ -105 hingga -100</td>
+                            <td>Sinyal lemah, koneksi tidak stabil</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge bg-danger">Sangat Buruk</span></td>
+                            <td>≤ -105</td>
+                            <td>Sinyal sangat lemah, koneksi mungkin terputus</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="features-section">
+                <h2 class="section-title">Faktor yang Mempengaruhi RSRP</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-building" style="font-size: 2rem; color: #7B68EE;"></i>
+                        </div>
+                        <h3>Penghalang Fisik</h3>
+                        <p>Bangunan, dinding, pohon, dan objek fisik lainnya dapat menghalangi dan melemahkan sinyal.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-broadcast-pin" style="font-size: 2rem; color: #7B68EE;"></i>
+                        </div>
+                        <h3>Jarak dari Menara</h3>
+                        <p>Semakin jauh perangkat dari menara BTS, semakin lemah sinyal yang diterima.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-lightning" style="font-size: 2rem; color: #7B68EE;"></i>
+                        </div>
+                        <h3>Interferensi</h3>
+                        <p>Gangguan dari menara lain dan perangkat elektronik dapat menurunkan kualitas sinyal.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-cloud-rain" style="font-size: 2rem; color: #7B68EE;"></i>
+                        </div>
+                        <h3>Kondisi Cuaca</h3>
+                        <p>Hujan lebat, salju, atau kabut dapat memengaruhi kekuatan sinyal dalam beberapa kondisi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="info-card">
+                <h2>Cara Meningkatkan RSRP</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="steps-list">
+                            <li>
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Optimasi Penempatan Antena</h4>
+                                    <p>Posisikan antena di lokasi yang tinggi dan bebas dari penghalang fisik.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Pengaturan Tilting Antena</h4>
+                                    <p>Sesuaikan kemiringan antena untuk memaksimalkan cakupan area yang diinginkan.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Kontrol Daya Pancar</h4>
+                                    <p>Atur daya pancar untuk mengurangi interferensi dan memperbaiki coverage.</p>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="steps-list">
+                            <li>
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Pemasangan Small Cell</h4>
+                                    <p>Tambahkan small cell di area dengan coverage yang buruk atau trafik yang tinggi.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-number">5</div>
+                                <div class="step-content">
+                                    <h4>Penambahan Repeater</h4>
+                                    <p>Gunakan repeater untuk memperkuat sinyal di area dengan coverage yang lemah.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-number">6</div>
+                                <div class="step-content">
+                                    <h4>Analisis Drive Test</h4>
+                                    <p>Lakukan drive test secara berkala untuk mengidentifikasi dan memperbaiki area dengan sinyal lemah.</p>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-12 text-center">
+            <h3>Analisis Data RSRP Anda</h3>
+            <p>Unggah file data jaringan Anda untuk mendapatkan analisis RSRP dan rekomendasi optimasi.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('upload_file') }}" class="cta-button primary">Unggah File Sekarang</a>
+                <a href="{{ url_for('help') }}" class="cta-button secondary">Pelajari Lebih Lanjut</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
