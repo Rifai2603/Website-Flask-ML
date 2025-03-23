@@ -333,3 +333,42 @@ body {
 .bg-normal {
     background-color: #b6db8f; /* Warna hijau muda */
 }
+
+/* visualisasi rsrp */
+
+.chart-container {
+    height: 250px;
+    margin-top: 15px;
+}
+
+.table-normal {
+    background-color: #fff3cd;
+}
+
+.table-responsive {
+    margin-top: 15px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #4e73df;
+}
+
+.subtitle {
+    margin-bottom: 20px;
+    color: #5a5c69;
+}
+
+.alert-info {
+    background-color: #e8f4fd;
+    border-color: #b6dbf6;
+    color: #0c5460;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    margin-bottom: 30px;
+}
+

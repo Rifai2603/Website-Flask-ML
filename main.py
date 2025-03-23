@@ -1,10 +1,19 @@
-from flask import Flask, render_template, request, url_for, send_file, session, redirect
+from flask import Flask, render_template, request, url_for, send_file, session, redirect, send_from_directory
 from flask_session import Session
 import pandas as pd
 import joblib
 import os
 import secrets
 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
+import folium
+import base64
+from io import BytesIO
+import matplotlib.colors as mcolors
+from matplotlib.colors import LinearSegmentedColormap
 
 app = Flask(__name__)
 # Tambahkan secret key untuk session
@@ -223,7 +232,146 @@ def download_result(site_id):
 
 @app.route("/rsrp")
 def rsrp():
-    return render_template("rsrp.html")
+    # Jika metode GET
+    # Periksa apakah ada hasil analisis di session
+    if session.get('analysis_id') and not session.get('clear_results', False):
+        # Jika ada hasil dan belum di-clear, tampilkan halaman hasil
+        site_id = session.get('site_id', '')
+        alamat_site = session.get('alamat_site', '')
+        ringkasan = session.get('ringkasan', '')
+        
+        # Membaca hasil dari file
+        result_filepath = os.path.join(app.config["RESULT_FOLDER"], f"{session['analysis_id']}.csv")
+        if os.path.exists(result_filepath):
+            df = pd.read_csv(result_filepath)
+            
+            # Membuat peta dan gambar untuk sebelum dan sesudah optimasi
+            generate_rsrp_maps(df, session['analysis_id'])
+            
+            # Menghitung statistik RSRP
+            rsrp_stats = calculate_rsrp_stats(df)
+            
+            # Render template hasil RSRP
+            return render_template('rsrp_result.html', 
+                                  site_id=site_id, 
+                                  alamat_site=alamat_site,
+                                  ringkasan=ringkasan,
+                                  analysis_id=session['analysis_id'],
+                                  rsrp_stats=rsrp_stats)
+        else:
+            return render_template("rsrp.html")
+    else:
+        # Jika tidak ada hasil atau sudah di-clear, tampilkan halaman RSRP info
+        return render_template("rsrp.html")
+
+# Fungsi untuk menghitung statistik RSRP
+def calculate_rsrp_stats(df):
+    # Statistik untuk nilai RSRP sebelum optimasi
+    before = {
+        'sangat_bagus': len(df[df['RSRP(dBm)'] >= -85]),
+        'bagus': len(df[(df['RSRP(dBm)'] >= -95) & (df['RSRP(dBm)'] < -85)]),
+        'normal': len(df[(df['RSRP(dBm)'] >= -100) & (df['RSRP(dBm)'] < -95)]),
+        'buruk': len(df[(df['RSRP(dBm)'] >= -105) & (df['RSRP(dBm)'] < -100)]),
+        'sangat_buruk': len(df[df['RSRP(dBm)'] < -105])
+    }
+    
+    # Statistik untuk nilai RSRP setelah optimasi
+    after = {
+        'sangat_bagus': len(df[df['RSRP(dBm)_after'] >= -85]),
+        'bagus': len(df[(df['RSRP(dBm)_after'] >= -95) & (df['RSRP(dBm)_after'] < -85)]),
+        'normal': len(df[(df['RSRP(dBm)_after'] >= -100) & (df['RSRP(dBm)_after'] < -95)]),
+        'buruk': len(df[(df['RSRP(dBm)_after'] >= -105) & (df['RSRP(dBm)_after'] < -100)]),
+        'sangat_buruk': len(df[df['RSRP(dBm)_after'] < -105])
+    }
+    
+    return {'before': before, 'after': after}
+
+# Fungsi untuk membuat peta RSRP
+def generate_rsrp_maps(df, analysis_id):
+    # Pastikan direktori static/maps ada
+    maps_dir = os.path.join('static', 'maps')
+    if not os.path.exists(maps_dir):
+        os.makedirs(maps_dir)
+    
+    # Definisikan warna untuk kelas RSRP
+    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    
+    # Definisikan batasan nilai untuk kategori RSRP
+    bounds = [-150, -105, -100, -95, -85, -44]
+    
+    # Hitung rata-rata koordinat untuk center peta
+    center_lat = df['Latitude'].mean()
+    center_lon = df['Longitude'].mean()
+    
+    # Fungsi untuk menentukan warna berdasarkan nilai RSRP
+    def get_color(rsrp):
+        if rsrp >= -85:
+            return '#0d6efd'  # Biru (Sangat Bagus)
+        elif rsrp >= -95:
+            return '#198754'  # Hijau (Bagus)
+        elif rsrp >= -100:
+            return '#b6db8f'  # Hijau Muda (Normal)
+        elif rsrp >= -105:
+            return '#FFFF00'  # Kuning (Buruk)
+        else:
+            return '#dc3545'  # Merah (Sangat Buruk)
+    
+    # Buat peta untuk RSRP sebelum optimasi
+    m_before = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
+    
+    # Tambahkan titik data ke peta
+    for i, row in df.iterrows():
+        folium.CircleMarker(
+            location=[row['Latitude'], row['Longitude']],
+            radius=5,
+            color=get_color(row['RSRP(dBm)']),
+            fill=True,
+            fill_color=get_color(row['RSRP(dBm)']),
+            fill_opacity=0.7,
+            popup=f"RSRP: {row['RSRP(dBm)']} dBm"
+        ).add_to(m_before)
+    
+    # Tambahkan legenda
+    legend_html = '''
+    <div style="position: fixed; bottom: 50px; left: 50px; background-color: white; 
+                border: 2px solid grey; z-index: 9999; padding: 10px;">
+        <p><b>RSRP (dBm)</b></p>
+        <p><i class="fa fa-circle" style="color:#4e73df"></i> Sangat Bagus (≥ -85)</p>
+        <p><i class="fa fa-circle" style="color:#1cc88a"></i> Bagus (≥ -95 s/d -85)</p>
+        <p><i class="fa fa-circle" style="color:#f6c23e"></i> Normal (≥ -100 s/d -95)</p>
+        <p><i class="fa fa-circle" style="color:#f8a339"></i> Buruk (≥ -105 s/d -100)</p>
+        <p><i class="fa fa-circle" style="color:#e74a3b"></i> Sangat Buruk (≥ -150 s/d -105)</p>
+    </div>
+    '''
+    #m_before.get_root().html.add_child(folium.Element(legend_html))
+    
+    # Simpan peta sebelum optimasi
+    m_before.save(f"static/maps/rsrp_before_{analysis_id}.html")
+    
+    # Buat peta untuk RSRP setelah optimasi
+    m_after = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
+    
+    # Tambahkan titik data ke peta
+    for i, row in df.iterrows():
+        folium.CircleMarker(
+            location=[row['Latitude'], row['Longitude']],
+            radius=5,
+            color=get_color(row['RSRP(dBm)_after']),
+            fill=True,
+            fill_color=get_color(row['RSRP(dBm)_after']),
+            fill_opacity=0.7,
+            popup=f"RSRP: {row['RSRP(dBm)_after']} dBm"
+        ).add_to(m_after)
+    
+    # Tambahkan legenda
+    #m_after.get_root().html.add_child(folium.Element(legend_html))
+    
+    # Simpan peta setelah optimasi
+    m_after.save(f"static/maps/rsrp_after_{analysis_id}.html")
+
+@app.route('/static/maps/<path:filename>')
+def serve_map(filename):
+    return send_from_directory('static/maps', filename)
 
 @app.route("/sinr")
 def sinr():
