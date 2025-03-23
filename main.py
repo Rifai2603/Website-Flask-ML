@@ -375,7 +375,142 @@ def serve_map(filename):
 
 @app.route("/sinr")
 def sinr():
-    return render_template("sinr.html")
+    # Jika metode GET
+    # Periksa apakah ada hasil analisis di session
+    if session.get('analysis_id') and not session.get('clear_results', False):
+        # Jika ada hasil dan belum di-clear, tampilkan halaman hasil
+        site_id = session.get('site_id', '')
+        alamat_site = session.get('alamat_site', '')
+        ringkasan = session.get('ringkasan', '')
+        
+        # Membaca hasil dari file
+        result_filepath = os.path.join(app.config["RESULT_FOLDER"], f"{session['analysis_id']}.csv")
+        if os.path.exists(result_filepath):
+            df = pd.read_csv(result_filepath)
+            
+            # Membuat peta dan gambar untuk sebelum dan sesudah optimasi
+            generate_sinr_maps(df, session['analysis_id'])
+            
+            # Menghitung statistik SINR
+            sinr_stats = calculate_sinr_stats(df)
+            
+            # Render template hasil SINR
+            return render_template('sinr_result.html', 
+                                  site_id=site_id, 
+                                  alamat_site=alamat_site,
+                                  ringkasan=ringkasan,
+                                  analysis_id=session['analysis_id'],
+                                  sinr_stats=sinr_stats)
+        else:
+            return render_template("sinr.html")
+    else:
+        # Jika tidak ada hasil atau sudah di-clear, tampilkan halaman RSRP info
+        return render_template("sinr.html")
+
+# Fungsi untuk menghitung statistik SINR
+def calculate_sinr_stats(df):
+    # Statistik untuk nilai SINR sebelum optimasi
+    before = {
+        'sangat_bagus': len(df[df['SINR(dB)'] >= 10]),
+        'bagus': len(df[(df['SINR(dB)'] >= 5) & (df['SINR(dB)'] < 10)]),
+        'normal': len(df[(df['SINR(dB)'] >= 0) & (df['SINR(dB)'] < 5)]),
+        'buruk': len(df[(df['SINR(dB)'] >= -5) & (df['SINR(dB)'] < 0)]),
+        'sangat_buruk': len(df[df['SINR(dB)'] < -5])
+    }
+    
+    # Statistik untuk nilai SINR setelah optimasi
+    after = {
+        'sangat_bagus': len(df[df['SINR(dB)_after'] >= 10]),
+        'bagus': len(df[(df['SINR(dB)_after'] >= 5) & (df['SINR(dB)_after'] < 10)]),
+        'normal': len(df[(df['SINR(dB)_after'] >= 0) & (df['SINR(dB)_after'] < 5)]),
+        'buruk': len(df[(df['SINR(dB)_after'] >= -5) & (df['SINR(dB)_after'] < 0)]),
+        'sangat_buruk': len(df[df['SINR(dB)_after'] < -5])
+    }
+    
+    return {'before': before, 'after': after}
+
+# Fungsi untuk membuat peta SINR
+def generate_sinr_maps(df, analysis_id):
+    # Pastikan direktori static/maps ada
+    maps_dir = os.path.join('static', 'maps')
+    if not os.path.exists(maps_dir):
+        os.makedirs(maps_dir)
+    
+    # Definisikan warna untuk kelas SINR
+    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    
+    # Definisikan batasan nilai untuk kategori SINR
+    bounds = [-20, -5, 0, 5, 10, 50]
+    
+    # Hitung rata-rata koordinat untuk center peta
+    center_lat = df['Latitude'].mean()
+    center_lon = df['Longitude'].mean()
+    
+    # Fungsi untuk menentukan warna berdasarkan nilai SINR
+    def get_color(sinr):
+        if sinr >= 10:
+            return '#0d6efd'  # Biru (Sangat Bagus)
+        elif sinr >= 5:
+            return '#198754'  # Hijau (Bagus)
+        elif sinr >= 0:
+            return '#b6db8f'  # Hijau Muda (Normal)
+        elif sinr >= -5:
+            return '#FFFF00'  # Kuning (Buruk)
+        else:
+            return '#dc3545'  # Merah (Sangat Buruk)
+    
+    # Buat peta untuk SINR sebelum optimasi
+    m_before = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
+    
+    # Tambahkan titik data ke peta
+    for i, row in df.iterrows():
+        folium.CircleMarker(
+            location=[row['Latitude'], row['Longitude']],
+            radius=5,
+            color=get_color(row['SINR(dB)']),
+            fill=True,
+            fill_color=get_color(row['SINR(dB)']),
+            fill_opacity=0.7,
+            popup=f"SINR: {row['SINR(dB)']} dB"
+        ).add_to(m_before)
+    
+    # Tambahkan legenda
+    legend_html = '''
+    <div style="position: fixed; bottom: 50px; left: 50px; background-color: white; 
+                border: 2px solid grey; z-index: 9999; padding: 10px;">
+        <p><b>RSRP (dBm)</b></p>
+        <p><i class="fa fa-circle" style="color:#4e73df"></i> Sangat Bagus (≥ -85)</p>
+        <p><i class="fa fa-circle" style="color:#1cc88a"></i> Bagus (≥ -95 s/d -85)</p>
+        <p><i class="fa fa-circle" style="color:#f6c23e"></i> Normal (≥ -100 s/d -95)</p>
+        <p><i class="fa fa-circle" style="color:#f8a339"></i> Buruk (≥ -105 s/d -100)</p>
+        <p><i class="fa fa-circle" style="color:#e74a3b"></i> Sangat Buruk (≥ -150 s/d -105)</p>
+    </div>
+    '''
+    #m_before.get_root().html.add_child(folium.Element(legend_html))
+    
+    # Simpan peta sebelum optimasi
+    m_before.save(f"static/maps/sinr_before_{analysis_id}.html")
+    
+    # Buat peta untuk RSRP setelah optimasi
+    m_after = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
+    
+    # Tambahkan titik data ke peta
+    for i, row in df.iterrows():
+        folium.CircleMarker(
+            location=[row['Latitude'], row['Longitude']],
+            radius=5,
+            color=get_color(row['SINR(dB)_after']),
+            fill=True,
+            fill_color=get_color(row['SINR(dB)_after']),
+            fill_opacity=0.7,
+            popup=f"SINR: {row['SINR(dB)_after']} dB"
+        ).add_to(m_after)
+    
+    # Tambahkan legenda
+    #m_after.get_root().html.add_child(folium.Element(legend_html))
+    
+    # Simpan peta setelah optimasi
+    m_after.save(f"static/maps/sinr_after_{analysis_id}.html")
 
 @app.route("/throughput_dl")
 def throughput_dl():
