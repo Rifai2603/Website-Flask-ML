@@ -369,10 +369,6 @@ def generate_rsrp_maps(df, analysis_id):
     # Simpan peta setelah optimasi
     m_after.save(f"static/maps/rsrp_after_{analysis_id}.html")
 
-@app.route('/static/maps/<path:filename>')
-def serve_map(filename):
-    return send_from_directory('static/maps', filename)
-
 @app.route("/sinr")
 def sinr():
     # Jika metode GET
@@ -579,7 +575,7 @@ def generate_downlink_maps(df, analysis_id):
     colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
     # Definisikan batasan nilai untuk kategori Downlink
-    bounds = [0, 3.000, 5.000, 10.000, 20.000, 300.000]
+    bounds = [0, 3000, 5000, 10000, 20000, 300000]
     
     # Hitung rata-rata koordinat untuk center peta
     center_lat = df['Latitude'].mean()
@@ -587,13 +583,13 @@ def generate_downlink_maps(df, analysis_id):
     
     # Fungsi untuk menentukan warna berdasarkan nilai Downlink
     def get_color(throughput_dl):
-        if throughput_dl >= 20.000:
+        if throughput_dl >= 20000:
             return '#0d6efd'  # Biru (Sangat Bagus)
-        elif throughput_dl >= 10.000:
+        elif throughput_dl >= 10000:
             return '#198754'  # Hijau (Bagus)
-        elif throughput_dl >= 5.000:
+        elif throughput_dl >= 5000:
             return '#b6db8f'  # Hijau Muda (Normal)
-        elif throughput_dl >= 3.000:
+        elif throughput_dl >= 3000:
             return '#FFFF00'  # Kuning (Buruk)
         else:
             return '#dc3545'  # Merah (Sangat Buruk)
@@ -610,7 +606,7 @@ def generate_downlink_maps(df, analysis_id):
             fill=True,
             fill_color=get_color(row['Throughput Downlink(Kbps)']),
             fill_opacity=0.7,
-            popup=f"Throughput Downlink: {row['Throughput Downlink(Kbps)']} dB"
+            popup=f"Throughput Downlink: {row['Throughput Downlink(Kbps)']} Kbps"
         ).add_to(m_before)
     
     # Tambahkan legenda
@@ -642,7 +638,7 @@ def generate_downlink_maps(df, analysis_id):
             fill=True,
             fill_color=get_color(row['Throughput Downlink(Kbps)_after']),
             fill_opacity=0.7,
-            popup=f"Downlink: {row['Throughput Downlink(Kbps)_after']} dB"
+            popup=f"Downlink: {row['Throughput Downlink(Kbps)_after']} Kbps"
         ).add_to(m_after)
     
     # Tambahkan legenda
@@ -667,77 +663,77 @@ def throughput_ul():
             df = pd.read_csv(result_filepath)
             
             # Membuat peta dan gambar untuk sebelum dan sesudah optimasi
-            generate_sinr_maps(df, session['analysis_id'])
+            generate_uplink_maps(df, session['analysis_id'])
             
-            # Menghitung statistik SINR
-            sinr_stats = calculate_sinr_stats(df)
+            # Menghitung statistik Uplink
+            uplink_stats = calculate_uplink_stats(df)
             
-            # Render template hasil SINR
-            return render_template('sinr_result.html', 
+            # Render template hasil Uplink
+            return render_template('throughput_ul_result.html', 
                                   site_id=site_id, 
                                   alamat_site=alamat_site,
                                   ringkasan=ringkasan,
                                   analysis_id=session['analysis_id'],
-                                  sinr_stats=sinr_stats)
+                                  uplink_stats=uplink_stats)
         else:
-            return render_template("sinr.html")
+            return render_template("throughput_ul.html")
     else:
-        # Jika tidak ada hasil atau sudah di-clear, tampilkan halaman RSRP info
-        return render_template("sinr.html")
+        # Jika tidak ada hasil atau sudah di-clear, tampilkan halaman Uplink info
+        return render_template("throughput_ul.html")
 
-# Fungsi untuk menghitung statistik SINR
-def calculate_sinr_stats(df):
-    # Statistik untuk nilai SINR sebelum optimasi
+# Fungsi untuk menghitung statistik Throughput Uplink
+def calculate_uplink_stats(df):
+    # Statistik untuk nilai Throughput Uplink sebelum optimasi
     before = {
-        'sangat_bagus': len(df[df['SINR(dB)'] >= 10]),
-        'bagus': len(df[(df['SINR(dB)'] >= 5) & (df['SINR(dB)'] < 10)]),
-        'normal': len(df[(df['SINR(dB)'] >= 0) & (df['SINR(dB)'] < 5)]),
-        'buruk': len(df[(df['SINR(dB)'] >= -5) & (df['SINR(dB)'] < 0)]),
-        'sangat_buruk': len(df[df['SINR(dB)'] < -5])
+        'sangat_bagus': len(df[df['Throughput Uplink(Kbps)'] >= 20000 ]),
+        'bagus': len(df[(df['Throughput Uplink(Kbps)'] >= 10000) & (df['Throughput Uplink(Kbps)'] < 20000)]),
+        'normal': len(df[(df['Throughput Uplink(Kbps)'] >= 5000) & (df['Throughput Uplink(Kbps)'] < 10000)]),
+        'buruk': len(df[(df['Throughput Uplink(Kbps)'] >= 1000) & (df['Throughput Uplink(Kbps)'] < 5000)]),
+        'sangat_buruk': len(df[df['Throughput Uplink(Kbps)'] < 1000])
     }
     
-    # Statistik untuk nilai SINR setelah optimasi
+    # Statistik untuk nilai Throughput Uplink setelah optimasi
     after = {
-        'sangat_bagus': len(df[df['SINR(dB)_after'] >= 10]),
-        'bagus': len(df[(df['SINR(dB)_after'] >= 5) & (df['SINR(dB)_after'] < 10)]),
-        'normal': len(df[(df['SINR(dB)_after'] >= 0) & (df['SINR(dB)_after'] < 5)]),
-        'buruk': len(df[(df['SINR(dB)_after'] >= -5) & (df['SINR(dB)_after'] < 0)]),
-        'sangat_buruk': len(df[df['SINR(dB)_after'] < -5])
+        'sangat_bagus': len(df[df['Throughput Uplink(Kbps)_after'] >= 20000]),
+        'bagus': len(df[(df['Throughput Uplink(Kbps)_after'] >= 10000) & (df['Throughput Uplink(Kbps)_after'] < 20000)]),
+        'normal': len(df[(df['Throughput Uplink(Kbps)_after'] >= 5000) & (df['Throughput Uplink(Kbps)_after'] < 10000)]),
+        'buruk': len(df[(df['Throughput Uplink(Kbps)_after'] >= 1000) & (df['Throughput Uplink(Kbps)_after'] < 5000)]),
+        'sangat_buruk': len(df[df['Throughput Uplink(Kbps)_after'] < 1000])
     }
     
     return {'before': before, 'after': after}
 
-# Fungsi untuk membuat peta SINR
-def generate_sinr_maps(df, analysis_id):
+# Fungsi untuk membuat peta Throughput Uplink
+def generate_uplink_maps(df, analysis_id):
     # Pastikan direktori static/maps ada
     maps_dir = os.path.join('static', 'maps')
     if not os.path.exists(maps_dir):
         os.makedirs(maps_dir)
     
-    # Definisikan warna untuk kelas SINR
+    # Definisikan warna untuk kelas Uplink
     colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
-    # Definisikan batasan nilai untuk kategori SINR
-    bounds = [-20, -5, 0, 5, 10, 50]
+    # Definisikan batasan nilai untuk kategori Uplink
+    bounds = [0, 1000, 5000, 10000, 20000, 300000]
     
     # Hitung rata-rata koordinat untuk center peta
     center_lat = df['Latitude'].mean()
     center_lon = df['Longitude'].mean()
     
-    # Fungsi untuk menentukan warna berdasarkan nilai SINR
-    def get_color(sinr):
-        if sinr >= 10:
+    # Fungsi untuk menentukan warna berdasarkan nilai Uplink
+    def get_color(throughput_dl):
+        if throughput_dl >= 20000:
             return '#0d6efd'  # Biru (Sangat Bagus)
-        elif sinr >= 5:
+        elif throughput_dl >= 10000:
             return '#198754'  # Hijau (Bagus)
-        elif sinr >= 0:
+        elif throughput_dl >= 5000:
             return '#b6db8f'  # Hijau Muda (Normal)
-        elif sinr >= -5:
+        elif throughput_dl >= 1000:
             return '#FFFF00'  # Kuning (Buruk)
         else:
             return '#dc3545'  # Merah (Sangat Buruk)
     
-    # Buat peta untuk SINR sebelum optimasi
+    # Buat peta untuk Throughput Uplink sebelum optimasi
     m_before = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
     
     # Tambahkan titik data ke peta
@@ -745,11 +741,11 @@ def generate_sinr_maps(df, analysis_id):
         folium.CircleMarker(
             location=[row['Latitude'], row['Longitude']],
             radius=5,
-            color=get_color(row['SINR(dB)']),
+            color=get_color(row['Throughput Uplink(Kbps)']),
             fill=True,
-            fill_color=get_color(row['SINR(dB)']),
+            fill_color=get_color(row['Throughput Uplink(Kbps)']),
             fill_opacity=0.7,
-            popup=f"SINR: {row['SINR(dB)']} dB"
+            popup=f"Throughput Uplink: {row['Throughput Uplink(Kbps)']} Kbps"
         ).add_to(m_before)
     
     # Tambahkan legenda
@@ -767,9 +763,9 @@ def generate_sinr_maps(df, analysis_id):
     #m_before.get_root().html.add_child(folium.Element(legend_html))
     
     # Simpan peta sebelum optimasi
-    m_before.save(f"static/maps/sinr_before_{analysis_id}.html")
+    m_before.save(f"static/maps/uplink_before_{analysis_id}.html")
     
-    # Buat peta untuk RSRP setelah optimasi
+    # Buat peta untuk Uplink setelah optimasi
     m_after = folium.Map(location=[center_lat, center_lon], zoom_start=14, tiles='OpenStreetMap')
     
     # Tambahkan titik data ke peta
@@ -777,18 +773,22 @@ def generate_sinr_maps(df, analysis_id):
         folium.CircleMarker(
             location=[row['Latitude'], row['Longitude']],
             radius=5,
-            color=get_color(row['SINR(dB)_after']),
+            color=get_color(row['Throughput Uplink(Kbps)_after']),
             fill=True,
-            fill_color=get_color(row['SINR(dB)_after']),
+            fill_color=get_color(row['Throughput Uplink(Kbps)_after']),
             fill_opacity=0.7,
-            popup=f"SINR: {row['SINR(dB)_after']} dB"
+            popup=f"Throughput Uplink: {row['Throughput Uplink(Kbps)_after']} Kbps"
         ).add_to(m_after)
     
     # Tambahkan legenda
     #m_after.get_root().html.add_child(folium.Element(legend_html))
     
     # Simpan peta setelah optimasi
-    m_after.save(f"static/maps/sinr_after_{analysis_id}.html")
+    m_after.save(f"static/maps/uplink_after_{analysis_id}.html")
+
+@app.route('/static/maps/<path:filename>')
+def serve_map(filename):
+    return send_from_directory('static/maps', filename)
 
 @app.route("/help")
 def help():
