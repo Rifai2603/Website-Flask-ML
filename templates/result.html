@@ -1,95 +1,128 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
+    <div class="result-card">
+        <div class="result-header">
+            <div class="result-icon">
+                <i class="bi bi-graph-up"></i>
+            </div>
+            <h2>Hasil Analisis Data Jaringan</h2>
+            <p class="text-muted">Rekomendasi optimasi berdasarkan data yang diunggah</p>
+        </div>
 
-    <!-- Tambahkan DataTables CSS dan JS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-
-    <div class="upload-container">
-        <h2 class="text-center mb-4">Upload File Data Jaringan</h2>
-        
-            <div class="row">
+        <div class="site-info-container">
+            <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="siteId">Site ID</label>
-                        <input type="text" class="form-control" value="{{ site_id }}" readonly>
+                    <div class="site-info-card">
+                        <div class="site-info-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="site-info-content">
+                            <h6>Site ID</h6>
+                            <p>{{ site_id }}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="alamatSite">Alamat Site</label>
-                        <input type="text" class="form-control" value="{{ alamat_site }}" readonly>
+                    <div class="site-info-card">
+                        <div class="site-info-icon">
+                            <i class="bi bi-pin-map"></i>
+                        </div>
+                        <div class="site-info-content">
+                            <h6>Alamat Site</h6>
+                            <p>{{ alamat_site }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center mt-4">
-                <a href="{{ url_for('download_result', site_id=site_id) }}" class="btn btn-success" id="downloadCSV">Download Hasil Analisis</a>
-                <a href="{{ url_for('clear_analysis') }}" class="btn btn-primary">Analisa Site Lain</a>
-            </div>
+        </div>
         
-        <div class="results-preview mt-5">
-            <h3 class="text-center mb-3">Rekomendasi Optimasi Jaringan yang diberikan</h3>
-            <p class="text-center fw-bold">{{ ringkasan }}</p>
+        <div class="action-buttons mt-4">
+            <a href="{{ url_for('download_result', site_id=site_id) }}" class="btn-download" id="downloadCSV">
+                <i class="bi bi-download me-2"></i>Download Hasil Analisis
+            </a>
+            <a href="{{ url_for('clear_analysis') }}" class="btn-secondary">
+                <i class="bi bi-plus me-2"></i>Analisa Site Lain
+            </a>
+        </div>
+        
+        <div class="recommendation-container mt-5">
+            <div class="recommendation-header">
+                <i class="bi bi-lightbulb me-2"></i>
+                <h3>Rekomendasi Optimasi Jaringan</h3>
+            </div>
+            <div class="recommendation-content">
+                <div class="alert alert-recommendation">
+                    <p class="recommendation-text">{{ ringkasan }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-table-container mt-4">
+            <div class="data-table-header">
+                <h4><i class="bi bi-table me-2"></i>Data Analisis</h4>
+            </div>
+            <div class="table-responsive">
+                {{ data|safe }}
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="tabel-hasil mt-4">
-        <div class="table-responsive">
-            {{ data|safe }}
-        </div>
-    </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    //fungsi untuk table
-        $(document).ready(function() {
-            // Terapkan DataTables ke tabel yang di-render dari data
-            $("table").addClass("display").DataTable({
-                "paging": true,       // Aktifkan pagination
-                "searching": true,    // Aktifkan fitur pencarian
-                "ordering": true,     // Aktifkan sorting kolom
-                "info": true,         // Tampilkan informasi jumlah data
-                "lengthMenu": [5, 10, 25, 50,100],  // Opsi jumlah data per halaman
-                "language": {
-                    "lengthMenu": "Tampilkan _MENU_ data per halaman",
-                    "zeroRecords": "Tidak ada data ditemukan",
-                    "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ data",
-                    "infoEmpty": "Tidak ada data tersedia",
-                    "search": "Cari:",
-                    "paginate": {
-                        "first": "<<",
-                        "last": ">>",
-                        "next": ">",
-                        "previous": "<"
-                    }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Terapkan DataTables ke tabel yang di-render dari data
+        var dataTable = $("table").addClass("display table table-striped table-hover").DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            "lengthMenu": [5, 10, 25, 50, 100],
+            "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                "zeroRecords": "Tidak ada data ditemukan",
+                "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ data",
+                "infoEmpty": "Tidak ada data tersedia",
+                "search": "Cari:",
+                "paginate": {
+                    "first": "<<",
+                    "last": ">>",
+                    "next": ">",
+                    "previous": "<"
                 }
-            });
+            }
         });
-    </script>
-    <script>
-        // Fungsi untuk mendownload data sebagai file CSV
-        function downloadCSV(filename) {
-            const csvContent = convertToCSV();
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-                
-            const link = document.createElement('a');
-            link.setAttribute('href', url);
-            link.setAttribute('download', filename);
-            link.style.visibility = 'hidden';
-                
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        
+        // Kotak pencarian kustom
+        $('#tableSearch').on('keyup', function() {
+            dataTable.search(this.value).draw();
+        });
+    });
+    
+    // Fungsi untuk mendownload data sebagai file CSV
+    function downloadCSV(filename) {
+        const csvContent = convertToCSV();
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
             
-        // Event listener untuk tombol download
-        document.getElementById('downloadCSV').addEventListener('click', function() {
-            downloadCSV('hasil_analisis.csv');
-        });
-    </script>
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+            
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+        
+    // Event listener untuk tombol download
+    document.getElementById('downloadCSV').addEventListener('click', function() {
+        downloadCSV('hasil_analisis.csv');
+    });
+</script>
 {% endblock %}

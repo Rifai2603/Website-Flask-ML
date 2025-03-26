@@ -1,29 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
+    <div class="upload-card">
+        <div class="upload-header">
+            <div class="upload-icon">
+                <i class="bi bi-cloud-upload"></i>
+            </div>
+            <h2>Upload File Data Jaringan</h2>
+            <p class="text-muted">Unggah file CSV untuk analisis optimasi jaringan</p>
+        </div>
 
-    <div class="upload-container">
-        <h2 class="text-center mb-4">Upload File Data Jaringan</h2>
-        
         <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="siteId">Site ID</label>
-                        <input type="text" class="form-control" id="siteId" name="siteId" value="{{ site_id if site_id else '' }}">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="siteId" name="siteId" placeholder="Site ID" value="{{ site_id if site_id else '' }}">
+                        <label for="siteId"><i class="bi bi-geo-alt me-2"></i>Site ID</label>
                         {% if errors and errors.siteId %}
-                            <div class="error-message" style="display: block;">{{ errors.siteId }}</div>
+                            <div class="error-message show">{{ errors.siteId }}</div>
                         {% else %}
                             <div id="siteIdError" class="error-message">Site ID wajib diisi</div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="alamatSite">Alamat Site</label>
-                        <input type="text" class="form-control" id="alamatSite" name="alamatSite" value="{{ alamat_site if alamat_site else '' }}">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="alamatSite" name="alamatSite" placeholder="Alamat Site" value="{{ alamat_site if alamat_site else '' }}">
+                        <label for="alamatSite"><i class="bi bi-pin-map me-2"></i>Alamat Site</label>
                         {% if errors and errors.alamatSite %}
-                            <div class="error-message" style="display: block;">{{ errors.alamatSite }}</div>
+                            <div class="error-message show">{{ errors.alamatSite }}</div>
                         {% else %}
                             <div id="alamatSiteError" class="error-message">Alamat Site wajib diisi</div>
                         {% endif %}
@@ -31,108 +37,148 @@
                 </div>
             </div>
             
-            <div class="form-group mt-4">
-                <label for="fileUpload">Upload File CSV</label>
-                <input type="file" class="form-control" id="fileUpload" name="file" accept=".csv" required>
-                <div class="file-info">*File yang diunggah harus berformat .csv dengan ukuran maksimal 10 MB</div>
+            <div class="file-upload-wrapper mt-4">
+                <div class="file-upload-message">
+                    <i class="bi bi-file-earmark-arrow-up"></i>
+                    <p>Drag & drop file CSV atau klik untuk memilih</p>
+                    <span class="file-limit">Format .csv dengan ukuran maksimal 10 MB</span>
+                </div>
+                <input type="file" class="file-upload-input" id="fileUpload" name="file" accept=".csv" required>
+                <div class="file-upload-preview">
+                    <span class="file-name">Tidak ada file dipilih</span>
+                    <button type="button" class="btn-remove-file"><i class="bi bi-x"></i></button>
+                </div>
                 {% if error %}
-                    <div class="error-message" style="display: block;">{{ error }}</div>
+                    <div class="error-message show">{{ error }}</div>
                 {% endif %}
             </div>
             
             <div class="text-center mt-4">
-                <button type="submit" id="analyzeBtn" class="btn-analisa">Analisa</button>
+                <button type="submit" id="analyzeBtn" class="btn-primary-action">
+                    <i class="bi bi-bar-chart me-2"></i>Analisa
+                </button>
             </div>
         </form>
         
         <div class="results-preview mt-5">
-            <h3 class="text-center mb-3">Rekomendasi Optimasi Jaringan yang diberikan</h3>
-            <p class="text-center text-muted">Hasil analisis akan ditampilkan di sini setelah file diproses</p>
+            <h3><i class="bi bi-pie-chart me-2"></i>Rekomendasi Optimasi Jaringan</h3>
+            <div class="empty-state">
+                <img src="{{ url_for('static', filename='images/empty-state.svg') }}" alt="Empty state" class="empty-state-img">
+                <p>Hasil analisis akan ditampilkan di sini setelah file diproses</p>
+            </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('uploadForm');
-            const siteIdInput = document.getElementById('siteId');
-            const alamatSiteInput = document.getElementById('alamatSite');
-            const fileInput = document.getElementById('fileUpload');
-            const analyzeBtn = document.getElementById('analyzeBtn');
-            
-            const siteIdError = document.getElementById('siteIdError');
-            const alamatSiteError = document.getElementById('alamatSiteError');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('uploadForm');
+        const siteIdInput = document.getElementById('siteId');
+        const alamatSiteInput = document.getElementById('alamatSite');
+        const fileInput = document.getElementById('fileUpload');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const fileUploadPreview = document.querySelector('.file-upload-preview');
+        const fileName = document.querySelector('.file-name');
+        const removeFileBtn = document.querySelector('.btn-remove-file');
+        const fileUploadMessage = document.querySelector('.file-upload-message');
+        
+        const siteIdError = document.getElementById('siteIdError');
+        const alamatSiteError = document.getElementById('alamatSiteError');
 
-            // Sembunyikan pesan error pada awalnya
-            if (siteIdError) siteIdError.style.display = 'none';
-            if (alamatSiteError) alamatSiteError.style.display = 'none';
+        // Sembunyikan pesan error pada awalnya
+        if (siteIdError) siteIdError.style.display = 'none';
+        if (alamatSiteError) alamatSiteError.style.display = 'none';
 
-            // Validasi form saat submit
-            form.addEventListener('submit', function(event) {
-                let isValid = true;
-                
-                // Validasi Site ID
-                if (!siteIdInput.value.trim()) {
-                    siteIdError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    siteIdError.style.display = 'none';
-                }
-                
-                // Validasi Alamat Site
-                if (!alamatSiteInput.value.trim()) {
-                    alamatSiteError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    alamatSiteError.style.display = 'none';
-                }
-
-                // Validasi file
-                if (fileInput && fileInput.files.length === 0) {
-                    alert('Pilih file CSV terlebih dahulu');
-                    isValid = false;
-                }
-
-                // Jika validasi gagal, hentikan pengiriman form
-                if (!isValid) {
-                    event.preventDefault(); // Ini yang penting - mencegah form dikirim!
-                } else {
-                    // Tampilkan loading indicator saat form valid
-                    analyzeBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menganalisa...';
-                    analyzeBtn.disabled = true;
-                }
-            });
-
-            // Validasi file sebelum upload
-            if (fileInput) {
-                fileInput.addEventListener('change', function() {
-                    if (this.files && this.files.length > 0) {
-                        const fileSize = this.files[0].size / 1024 / 1024; // ukuran dalam MB
-                        if (fileSize > 10) {
+        // Pratinjau file upload
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    const fileSize = this.files[0].size / 1024 / 1024; // ukuran dalam MB
+                    if (fileSize > 10) {
                         alert('Ukuran file melebihi batas maksimal 10 MB');
                         this.value = '';
-                        }
+                        fileUploadMessage.style.display = 'flex';
+                        fileUploadPreview.style.display = 'none';
+                    } else {
+                        fileName.textContent = this.files[0].name;
+                        fileUploadMessage.style.display = 'none';
+                        fileUploadPreview.style.display = 'flex';
                     }
-                });
-            }
+                } else {
+                    fileUploadMessage.style.display = 'flex';
+                    fileUploadPreview.style.display = 'none';
+                }
+            });
+        }
 
-            // Validasi saat input berubah
-            if (siteIdInput) {
-                siteIdInput.addEventListener('input', function() {
-                    if (this.value.trim()) {
-                        if (siteIdError) siteIdError.style.display = 'none';
-                    }
-                });
+        // Tombol hapus file
+        if (removeFileBtn) {
+            removeFileBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                fileInput.value = '';
+                fileUploadMessage.style.display = 'flex';
+                fileUploadPreview.style.display = 'none';
+            });
+        }
+
+        // Validasi form
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            
+            // Validasi Site ID
+            if (!siteIdInput.value.trim()) {
+                siteIdError.style.display = 'block';
+                siteIdInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                siteIdError.style.display = 'none';
+                siteIdInput.classList.remove('is-invalid');
             }
             
-            if (alamatSiteInput) {
-                alamatSiteInput.addEventListener('input', function() {
-                    if (this.value.trim()) {
-                        if (alamatSiteError) alamatSiteError.style.display = 'none';
-                    }
-                });
+            // Validasi Alamat Site
+            if (!alamatSiteInput.value.trim()) {
+                alamatSiteError.style.display = 'block';
+                alamatSiteInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                alamatSiteError.style.display = 'none';
+                alamatSiteInput.classList.remove('is-invalid');
+            }
+
+            // Validasi file
+            if (fileInput && fileInput.files.length === 0) {
+                alert('Pilih file CSV terlebih dahulu');
+                isValid = false;
+            }
+
+            // Jika validasi gagal, hentikan pengiriman form
+            if (!isValid) {
+                event.preventDefault();
+            } else {
+                // Tampilkan indikator loading saat form valid
+                analyzeBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menganalisa...';
+                analyzeBtn.disabled = true;
             }
         });
-    </script>
-{% endblock %} 
+
+        // Validasi saat input berubah
+        if (siteIdInput) {
+            siteIdInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    siteIdError.style.display = 'none';
+                    this.classList.remove('is-invalid');
+                }
+            });
+        }
+        
+        if (alamatSiteInput) {
+            alamatSiteInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    alamatSiteError.style.display = 'none';
+                    this.classList.remove('is-invalid');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
