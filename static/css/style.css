@@ -1,7 +1,7 @@
 /* Debugging */
-* {
+/* {
     outline: 1px solid red;
-}
+/}
 
 /* ======= VARIABEL WARNA DAN UKURAN ======= */
 :root {
@@ -171,7 +171,7 @@ body {
     line-height: 1.6;
 }
   
-.cta-buttons {
+.home-cta-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
