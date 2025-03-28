@@ -2,114 +2,185 @@
 {% block content %}
 
 <div class="container">
-    <div class="row mt-4">
+    <!-- Header Section -->
+    <div class="row mt-4" data-aos="fade-up">
         <div class="col-md-12">
-            <h1 class="section-title">Hasil Analisis SINR</h1>
-            <p class="text-center subtitle">Site ID: {{ site_id }} - {{ alamat_site }}</p>
-            <p class="alert alert-info">{{ ringkasan }}</p>
+            <h1 class="sinr-title section-title">Hasil Analisis sinr</h1>
+            <div class="sinr-site-info">
+                <span class="sinr-site-badge"><i class="bi bi-geo-alt-fill"></i> Site ID: {{ site_id }} - {{ alamat_site }}</span>
+            </div>
+            <div class="sinr-summary alert alert-info">
+                <i class="bi bi-info-circle-fill"></i>
+                <p>{{ ringkasan }}</p>
+            </div>
         </div>
     </div>
 
+    <!-- Analysis Card -->
     <div class="row mt-4">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card sinr-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-header sinr-card-header">
+                    <h3 class="card-title text-center mb-0">
+                        <i class="bi bi-reception-4"></i> sinr Analysis
+                    </h3>
+                </div>
                 <div class="card-body">
-                    <h3 class="card-title text-center">SINR</h3>
-                    
                     <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="text-center">Sebelum Optimasi</h4>
-                            <div class="map-container">
-                                <iframe src="{{ url_for('static', filename='maps/sinr_before_' + analysis_id + '.html') }}" width="100%" height="400"></iframe>
-                            </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Kategori</th>
-                                            <th>Batas Nilai SINR (dB)</th>
-                                            <th>Jumlah Titik</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="table-primary">
-                                            <td>Sangat Bagus</td>
-                                            <td>≥ 10</td>
-                                            <td>{{ sinr_stats.before.sangat_bagus }}</td>
-                                        </tr>
-                                        <tr class="table-success">
-                                            <td>Bagus</td>
-                                            <td>≥ 5 s/d 10</td>
-                                            <td>{{ sinr_stats.before.bagus }}</td>
-                                        </tr>
-                                        <tr class="table-normal">
-                                            <td>Normal</td>
-                                            <td>≥ 0 s/d 5</td>
-                                            <td>{{ sinr_stats.before.normal }}</td>
-                                        </tr>
-                                        <tr class="table-warning">
-                                            <td>Buruk</td>
-                                            <td>≥ -5 s/d 0</td>
-                                            <td>{{ sinr_stats.before.buruk }}</td>
-                                        </tr>
-                                        <tr class="table-danger">
-                                            <td>Sangat Buruk</td>
-                                            <td>≥ -20 s/d -5</td>
-                                            <td>{{ sinr_stats.before.sangat_buruk }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="chart-container mt-3">
-                                <canvas id="sinrChartBefore"></canvas>
+                        <!-- Before Optimization -->
+                        <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
+                            <div class="sinr-comparison-column">
+                                <h4 class="text-center sinr-comparison-title">
+                                    <span class="sinr-badge before"><i class="bi bi-arrow-left-circle"></i> Sebelum Optimasi</span>
+                                </h4>
+                                <div class="sinr-map-container">
+                                    <iframe src="{{ url_for('static', filename='maps/sinr_before_' + analysis_id + '.html') }}" width="100%" height="400" class="sinr-map"></iframe>
+                                </div>
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered sinr-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Kategori</th>
+                                                <th>Batas Nilai sinr (dBm)</th>
+                                                <th>Jumlah Titik</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="sinr-excellent">
+                                                <td><i class="bi bi-reception-4"></i> Sangat Bagus</td>
+                                                <td>≥ -85</td>
+                                                <td>{{ sinr_stats.before.sangat_bagus }}</td>
+                                            </tr>
+                                            <tr class="sinr-good">
+                                                <td><i class="bi bi-reception-3"></i> Bagus</td>
+                                                <td>≥ -95 s/d -85</td>
+                                                <td>{{ sinr_stats.before.bagus }}</td>
+                                            </tr>
+                                            <tr class="sinr-normal">
+                                                <td><i class="bi bi-reception-2"></i> Normal</td>
+                                                <td>≥ -100 s/d -95</td>
+                                                <td>{{ sinr_stats.before.normal }}</td>
+                                            </tr>
+                                            <tr class="sinr-poor">
+                                                <td><i class="bi bi-reception-1"></i> Buruk</td>
+                                                <td>≥ -105 s/d -100</td>
+                                                <td>{{ sinr_stats.before.buruk }}</td>
+                                            </tr>
+                                            <tr class="sinr-bad">
+                                                <td><i class="bi bi-reception-0"></i> Sangat Buruk</td>
+                                                <td>≥ -150 s/d -105</td>
+                                                <td>{{ sinr_stats.before.sangat_buruk }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="chart-container mt-3">
+                                    <canvas id="sinrChartBefore"></canvas>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="col-md-6">
-                            <h4 class="text-center">Setelah Optimasi</h4>
-                            <div class="map-container">
-                                <iframe src="{{ url_for('static', filename='maps/sinr_after_' + analysis_id + '.html') }}" width="100%" height="400"></iframe>
+                        <!-- After Optimization -->
+                        <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
+                            <div class="sinr-comparison-column">
+                                <h4 class="text-center sinr-comparison-title">
+                                    <span class="sinr-badge after"><i class="bi bi-arrow-right-circle"></i> Setelah Optimasi</span>
+                                </h4>
+                                <div class="sinr-map-container">
+                                    <iframe src="{{ url_for('static', filename='maps/sinr_after_' + analysis_id + '.html') }}" width="100%" height="400" class="sinr-map"></iframe>
+                                </div>
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered sinr-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Kategori</th>
+                                                <th>Batas Nilai sinr (dBm)</th>
+                                                <th>Jumlah Titik</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="sinr-excellent">
+                                                <td><i class="bi bi-reception-4"></i> Sangat Bagus</td>
+                                                <td>≥ -85</td>
+                                                <td>{{ sinr_stats.after.sangat_bagus }}</td>
+                                            </tr>
+                                            <tr class="sinr-good">
+                                                <td><i class="bi bi-reception-3"></i> Bagus</td>
+                                                <td>≥ -95 s/d -85</td>
+                                                <td>{{ sinr_stats.after.bagus }}</td>
+                                            </tr>
+                                            <tr class="sinr-normal">
+                                                <td><i class="bi bi-reception-2"></i> Normal</td>
+                                                <td>≥ -100 s/d -95</td>
+                                                <td>{{ sinr_stats.after.normal }}</td>
+                                            </tr>
+                                            <tr class="sinr-poor">
+                                                <td><i class="bi bi-reception-1"></i> Buruk</td>
+                                                <td>≥ -105 s/d -100</td>
+                                                <td>{{ sinr_stats.after.buruk }}</td>
+                                            </tr>
+                                            <tr class="sinr-bad">
+                                                <td><i class="bi bi-reception-0"></i> Sangat Buruk</td>
+                                                <td>≥ -150 s/d -105</td>
+                                                <td>{{ sinr_stats.after.sangat_buruk }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="chart-container mt-3">
+                                    <canvas id="sinrChartAfter"></canvas>
+                                </div>
                             </div>
-                            <div class="table-responsive mt-3">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Kategori</th>
-                                            <th>Batas Nilai SINR (dB)</th>
-                                            <th>Jumlah Titik</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="table-primary">
-                                            <td>Sangat Bagus</td>
-                                            <td>≥ 10</td>
-                                            <td>{{ sinr_stats.after.sangat_bagus }}</td>
-                                        </tr>
-                                        <tr class="table-success">
-                                            <td>Bagus</td>
-                                            <td>≥ 5 s/d 10</td>
-                                            <td>{{ sinr_stats.after.bagus }}</td>
-                                        </tr>
-                                        <tr class="table-normal">
-                                            <td>Normal</td>
-                                            <td>≥ 0 s/d 5</td>
-                                            <td>{{ sinr_stats.after.normal }}</td>
-                                        </tr>
-                                        <tr class="table-warning">
-                                            <td>Buruk</td>
-                                            <td>≥ -5 s/d 0</td>
-                                            <td>{{ sinr_stats.after.buruk }}</td>
-                                        </tr>
-                                        <tr class="table-danger">
-                                            <td>Sangat Buruk</td>
-                                            <td>≥ -20 s/d -5</td>
-                                            <td>{{ sinr_stats.after.sangat_buruk }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Improvement Summary -->
+                    <div class="row mt-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="col-md-12">
+                            <div class="sinr-improvement-summary">
+                                <h4 class="text-center mb-4"><i class="bi bi-graph-up-arrow"></i> Ringkasan Peningkatan</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="sinr-metric">
+                                            <div class="sinr-metric-value">
+                                                {{ ((sinr_stats.after.sangat_bagus + sinr_stats.after.bagus) - (sinr_stats.before.sangat_bagus + sinr_stats.before.bagus)) }}
+                                            </div>
+                                            <div class="sinr-metric-label">Peningkatan Titik Bagus</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="sinr-metric">
+                                            <div class="sinr-metric-value">
+                                                {{ ((sinr_stats.before.buruk + sinr_stats.before.sangat_buruk) - (sinr_stats.after.buruk + sinr_stats.after.sangat_buruk)) }}
+                                            </div>
+                                            <div class="sinr-metric-label">Pengurangan Titik Buruk</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="sinr-metric">
+                                            <div class="sinr-metric-value">
+                                                {% set before_percentage = (sinr_stats.before.sangat_bagus + sinr_stats.before.bagus) / (sinr_stats.before.sangat_bagus + sinr_stats.before.bagus + sinr_stats.before.normal + sinr_stats.before.buruk + sinr_stats.before.sangat_buruk) * 100 %}
+                                                {% set after_percentage = (sinr_stats.after.sangat_bagus + sinr_stats.after.bagus) / (sinr_stats.after.sangat_bagus + sinr_stats.after.bagus + sinr_stats.after.normal + sinr_stats.after.buruk + sinr_stats.after.sangat_buruk) * 100 %}
+                                                {{ (after_percentage - before_percentage)|round(1) }}%
+                                            </div>
+                                            <div class="sinr-metric-label">Peningkatan Persentase</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="chart-container mt-3">
-                                <canvas id="sinrChartAfter"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="row mt-4" data-aos="fade-up" data-aos-delay="600">
+                        <div class="col-md-12">
+                            <div class="sinr-action-buttons">
+                                <a href="{{ url_for('upload_file') }}" class="btn sinr-btn-analyze">
+                                    <i class="bi bi-arrow-repeat me-2"></i> Analisis Baru
+                                </a>
+                                <a href="{{ url_for('home') }}" class="btn sinr-btn-home">
+                                    <i class="bi bi-house-door me-2"></i> Kembali ke Home
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -117,12 +188,11 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Chart untuk SINR Sebelum Optimasi
+    // Chart untuk sinr Sebelum Optimasi
     const ctxBefore = document.getElementById('sinrChartBefore').getContext('2d');
     const sinrChartBefore = new Chart(ctxBefore, {
         type: 'pie',
@@ -139,11 +209,12 @@
                 backgroundColor: [
                     '#0d6efd', // Biru untuk Sangat Bagus
                     '#198754', // Hijau untuk Bagus
-                    '#b6db8f', // Hijau Muda untuk Normal
+                    '#8ac926', // Hijau untuk Normal
                     '#FFFF00', // Kuning untuk Buruk
                     '#dc3545'  // Merah untuk Sangat Buruk
                 ],
-                borderWidth: 1
+                borderWidth: 2,
+                borderColor: '#ffffff'
             }]
         },
         options: {
@@ -152,12 +223,28 @@
             plugins: {
                 legend: {
                     position: 'right',
+                    labels: {
+                        padding: 15,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Distribusi sinr Sebelum Optimasi',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        bottom: 10
+                    }
                 }
             }
         }
     });
 
-    // Chart untuk SINR Setelah Optimasi
+    // Chart untuk sinr Setelah Optimasi
     const ctxAfter = document.getElementById('sinrChartAfter').getContext('2d');
     const sinrChartAfter = new Chart(ctxAfter, {
         type: 'pie',
@@ -174,11 +261,12 @@
                 backgroundColor: [
                     '#0d6efd', // Biru untuk Sangat Bagus
                     '#198754', // Hijau untuk Bagus
-                    '#b6db8f', // Hijau Muda untuk Normal
+                    '#8ac926', // Hijau untuk Normal
                     '#FFFF00', // Kuning untuk Buruk
                     '#dc3545'  // Merah untuk Sangat Buruk
                 ],
-                borderWidth: 1
+                borderWidth: 2,
+                borderColor: '#ffffff'
             }]
         },
         options: {
@@ -187,6 +275,22 @@
             plugins: {
                 legend: {
                     position: 'right',
+                    labels: {
+                        padding: 15,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Distribusi sinr Setelah Optimasi',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        bottom: 10
+                    }
                 }
             }
         }

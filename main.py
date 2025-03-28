@@ -721,14 +721,14 @@ def generate_uplink_maps(df, analysis_id):
     center_lon = df['Longitude'].mean()
     
     # Fungsi untuk menentukan warna berdasarkan nilai Uplink
-    def get_color(throughput_dl):
-        if throughput_dl >= 20000:
+    def get_color(throughput_ul):
+        if throughput_ul >= 20000:
             return '#0d6efd'  # Biru (Sangat Bagus)
-        elif throughput_dl >= 10000:
+        elif throughput_ul >= 10000:
             return '#198754'  # Hijau (Bagus)
-        elif throughput_dl >= 5000:
+        elif throughput_ul >= 5000:
             return '#b6db8f'  # Hijau Muda (Normal)
-        elif throughput_dl >= 1000:
+        elif throughput_ul >= 1000:
             return '#FFFF00'  # Kuning (Buruk)
         else:
             return '#dc3545'  # Merah (Sangat Buruk)

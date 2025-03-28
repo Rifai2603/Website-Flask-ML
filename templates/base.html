@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <!-- Animate On Screen-->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/rsrp-styles.css') }}">
@@ -21,35 +24,49 @@
 </head>
 
 <body>
+    <!-- Header with Navigation -->
     <div class="header">
         <div class="navbar">
-            <a href="{{ url_for('home') }}" {% if request.path == url_for('home') %}class="active"{% endif %}>Home</a>
-            <a href="{{ url_for('upload_file') }}" {% if request.path == url_for('upload_file') %}class="active"{% endif %}>Upload File</a>
+            <a href="{{ url_for('home') }}" {% if request.path == url_for('home') %}class="active"{% endif %}>
+                <i class="bi bi-house-door"></i> Home
+            </a>
+            <a href="{{ url_for('upload_file') }}" {% if request.path == url_for('upload_file') %}class="active"{% endif %}>
+                <i class="bi bi-cloud-upload"></i> Upload File
+            </a>
             
             <div class="dropdown">
-                <a href="#" {% if '/parameter4g' in request.path %}class="active"{% endif %}>Parameter 4G</a>
+                <a href="#" {% if '/parameter4g' in request.path %}class="active"{% endif %}>
+                    <i class="bi bi-bar-chart"></i> Parameter 4G
+                </a>
                 <div class="dropdown-content">
-                    <a href="{{ url_for('rsrp') }}" {% if request.path == url_for('rsrp') %}class="active"{% endif %}>RSRP</a>
-                    <a href="{{ url_for('sinr') }}" {% if request.path == url_for('sinr') %}class="active"{% endif %}>SINR</a>
-                    <a href="{{ url_for('throughput_dl') }}" {% if request.path == url_for('throughput_dl') %}class="active"{% endif %}>Throughput DL</a>
-                    <a href="{{ url_for('throughput_ul') }}" {% if request.path == url_for('throughput_ul') %}class="active"{% endif %}>Throughput UL</a>
+                    <a href="{{ url_for('rsrp') }}" {% if request.path == url_for('rsrp') %}class="active"{% endif %}>
+                        <i class="bi bi-reception-4"></i> RSRP
+                    </a>
+                    <a href="{{ url_for('sinr') }}" {% if request.path == url_for('sinr') %}class="active"{% endif %}>
+                        <i class="bi bi-reception-3"></i> SINR
+                    </a>
+                    <a href="{{ url_for('throughput_dl') }}" {% if request.path == url_for('throughput_dl') %}class="active"{% endif %}>
+                        <i class="bi bi-download"></i> Throughput DL
+                    </a>
+                    <a href="{{ url_for('throughput_ul') }}" {% if request.path == url_for('throughput_ul') %}class="active"{% endif %}>
+                        <i class="bi bi-upload"></i> Throughput UL
+                    </a>
                 </div>
             </div>
             
-            <a href="{{ url_for('help') }}" {% if request.path == url_for('help') %}class="active"{% endif %}>Help</a>
-            <a href="{{ url_for('about') }}" {% if request.path == url_for('about') %}class="active"{% endif %}>About</a>
+            <a href="{{ url_for('help') }}" {% if request.path == url_for('help') %}class="active"{% endif %}>
+                <i class="bi bi-question-circle"></i> Help
+            </a>
+            <a href="{{ url_for('about') }}" {% if request.path == url_for('about') %}class="active"{% endif %}>
+                <i class="bi bi-info-circle"></i> About
+            </a>
         </div>
     </div>
 
+    <!-- Main Content Area -->
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-
-    <!-- Animate On Screen-->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
 
     <!-- Footer -->
     <div class="footer">
@@ -67,12 +84,21 @@
         </div>
     </div>
 
-    <!-- RSRP Page JavaScript -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Animate On Screen -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Smooth scroll for anchor links
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     
                     const targetId = this.getAttribute('href');
@@ -88,4 +114,8 @@
             });
         });
     </script>
+    
+    <!-- Additional page-specific scripts -->
+    {% block scripts %}{% endblock %}
 </body>
+</html>
