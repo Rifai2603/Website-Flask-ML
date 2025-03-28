@@ -46,12 +46,12 @@
         </div>
     </div>
 
-    <!-- RSRP Info Section with Card Layout -->
+    <!-- SINR Info Section with Card Layout -->
     <div class="row mt-5" id="sinr-info">
         <div class="col-md-8">
             <div class="sinr-info-card">
-                <h3 class="mb-4"><i class="bi bi-broadcast me-2 text-primary"></i>Apa itu RSRP?</h3>
-                <p>RSRP (Reference Signal Received Power) adalah pengukuran kekuatan sinyal dalam jaringan LTE yang menunjukkan kekuatan sinyal referensi yang diterima oleh perangkat pengguna dari sel jaringan. RSRP merupakan indikator utama untuk mengevaluasi kualitas cakupan jaringan 4G.</p>
+                <h3 class="mb-4"><i class="bi bi-broadcast me-2 text-primary"></i>Apa itu SINR?</h3>
+                <p>SINR (Signal to Interference plus Noise Ratio) adalah pengukuran yang menunjukkan kualitas sinyal dalam jaringan LTE dengan membandingkan kekuatan sinyal yang diinginkan terhadap jumlah interferensi dan noise. SINR merupakan indikator utama untuk mengevaluasi kualitas transmisi data dalam jaringan 4G.</p>
                 
                 <div class="sinr-definition-box">
                     <div class="sinr-definition-icon">
@@ -59,27 +59,35 @@
                     </div>
                     <div class="sinr-definition-content">
                         <h4>Definisi Teknis</h4>
-                        <p>RSRP adalah rata-rata linear dari daya yang dibawa oleh Resource Elements (RE) yang membawa Reference Signals (RS) dalam bandwidth yang ditentukan.</p>
+                        <p>SINR adalah perbandingan antara kekuatan sinyal yang diinginkan (S) dengan jumlah interferensi dari sinyal lain (I) dan noise latar belakang (N). Semakin tinggi nilai SINR, semakin baik kualitas sinyal.</p>
                     </div>
                 </div>
                 
-                <h3 class="mt-5 mb-4"><i class="bi bi-question-circle me-2 text-primary"></i>Mengapa RSRP Penting?</h3>
-                <p>RSRP berfungsi sebagai indikator utama untuk:</p>
+                <h3 class="mt-5 mb-4"><i class="bi bi-question-circle me-2 text-primary"></i>Mengapa SINR Penting?</h3>
+                <p>SINR berfungsi sebagai indikator utama untuk:</p>
                 <ul class="sinr-feature-list">
+                    <li>
+                        <div class="sinr-feature-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <div class="sinr-feature-text">
+                            <strong>Menentukan kecepatan data</strong> yang dapat dicapai dalam jaringan
+                        </div>
+                    </li>
                     <li>
                         <div class="sinr-feature-icon">
                             <i class="bi bi-reception-4"></i>
                         </div>
                         <div class="sinr-feature-text">
-                            <strong>Mengukur kekuatan sinyal</strong> yang diterima dari sel jaringan
+                            <strong>Mengukur kualitas sinyal</strong> yang diterima dari sel jaringan
                         </div>
                     </li>
                     <li>
                         <div class="sinr-feature-icon">
-                            <i class="bi bi-arrow-left-right"></i>
+                            <i class="bi bi-diagram-3"></i>
                         </div>
                         <div class="sinr-feature-text">
-                            <strong>Menentukan handover antar sel</strong> untuk menjaga koneksi yang stabil
+                            <strong>Mempengaruhi pemilihan skema modulasi</strong> dan coding yang digunakan
                         </div>
                     </li>
                     <li>
@@ -87,15 +95,7 @@
                             <i class="bi bi-shield-check"></i>
                         </div>
                         <div class="sinr-feature-text">
-                            <strong>Menilai cakupan dan kualitas</strong> jaringan 4G secara keseluruhan
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sinr-feature-icon">
-                            <i class="bi bi-geo-alt"></i>
-                        </div>
-                        <div class="sinr-feature-text">
-                            <strong>Mengidentifikasi area</strong> dengan cakupan yang buruk
+                            <strong>Menilai efisiensi spektral</strong> dan kapasitas jaringan 4G secara keseluruhan
                         </div>
                     </li>
                     <li>
@@ -112,65 +112,66 @@
 
         <div class="col-md-4">
             <div class="sinr-scale-card">
-                <h3 class="text-center mb-4">Skala Nilai RSRP</h3>
+                <h3 class="text-center mb-4">Skala Nilai SINR</h3>
                 <div class="sinr-scale-visual">
                     <div class="sinr-gradient-bar"></div>
                     <div class="sinr-scale-markers">
                         <span class="sinr-marker" style="left: 0%">-20 dB</span>
-                        <span class="sinr-marker" style="left: 25%">0 dB</span>
-                        <span class="sinr-marker" style="left: 50%">10 dB</span>
-                        <span class="sinr-marker" style="left: 75%">20 dB</span>
-                        <span class="sinr-marker" style="left: 100%">30 dB</span>
+                        <span class="sinr-marker" style="left: 20%">0 dB</span>
+                        <span class="sinr-marker" style="left: 40%">10 dB</span>
+                        <span class="sinr-marker" style="left: 60%">20 dB</span>
+                        <span class="sinr-marker" style="left: 80%">30 dB</span>
+                        <span class="sinr-marker" style="left: 100%">70 dB</span>
                     </div>
                 </div>
         
                 <div class="sinr-quality-indicators">
                     <div class="sinr-quality-item">
-                        <div class="sinr-quality-dot --sinr-very-poor"></div>
+                        <div class="sinr-quality-dot" style="background-color: var(--sinr-very-poor)"></div>
                         <span>Sangat Buruk</span>
                     </div>
                     <div class="sinr-quality-item">
-                        <div class="sinr-quality-dot poor"></div>
+                        <div class="sinr-quality-dot" style="background-color: var(--sinr-poor)"></div>
                         <span>Buruk</span>
                     </div>
                     <div class="sinr-quality-item">
-                        <div class="sinr-quality-dot fair"></div>
+                        <div class="sinr-quality-dot" style="background-color: var(--sinr-fair)"></div>
                         <span>Sedang</span>
                     </div>
                     <div class="sinr-quality-item">
-                        <div class="sinr-quality-dot good"></div>
+                        <div class="sinr-quality-dot" style="background-color: var(--sinr-good)"></div>
                         <span>Baik</span>
                     </div>
                     <div class="sinr-quality-item">
-                        <div class="sinr-quality-dot excellent"></div>
+                        <div class="sinr-quality-dot" style="background-color: var(--sinr-excellent)"></div>
                         <span>Sangat Baik</span>
                     </div>
                 </div>
         
                 <div class="sinr-unit-box">
                     <h4><i class="bi bi-info-circle me-2"></i>Satuan Pengukuran</h4>
-                    <p>RSRP diukur dalam <strong>dBm</strong> (decibel milliwatts), satuan logaritmik yang mengukur tingkat daya dalam miliwatt.</p>
+                    <p>SINR diukur dalam <strong>dB</strong> (decibel), satuan logaritmik yang mengukur perbandingan antara sinyal dan interferensi plus noise.</p>
                     <div class="sinr-formula">
-                        <span>dBm = 10 × log<sub>10</sub>(P<sub>mW</sub>)</span>
+                        <span>SINR = 10 × log<sub>10</sub>(S/(I+N))</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- RSRP Quality Table with Enhanced Styling -->
+    <!-- SINR Quality Table with Enhanced Styling -->
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="sinr-table-container">
                 <div class="sinr-table-header">
-                    <h4><i class="bi bi-table me-2"></i>Klasifikasi Kualitas RSRP</h4>
+                    <h4><i class="bi bi-table me-2"></i>Klasifikasi Kualitas SINR</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover sinr-quality-table">
                         <thead>
                             <tr>
                                 <th width="15%">Kualitas Sinyal</th>
-                                <th width="15%">Nilai RSRP (dBm)</th>
+                                <th width="15%">Nilai SINR (dB)</th>
                                 <th width="35%">Interpretasi</th>
                                 <th width="35%">Rekomendasi</th>
                             </tr>
@@ -178,33 +179,33 @@
                         <tbody>
                             <tr class="sinr-excellent">
                                 <td><span class="badge bg-excellent">Sangat Baik</span></td>
-                                <td>-85 hingga 0</td>
-                                <td>Sinyal sangat kuat, kualitas koneksi optimal untuk semua layanan termasuk VoLTE dan streaming HD</td>
+                                <td>20 hingga 30</td>
+                                <td>Kualitas sinyal sangat baik, mendukung kecepatan data maksimal dan modulasi 256QAM</td>
                                 <td>Pertahankan konfigurasi saat ini, dapat dijadikan referensi untuk site lain</td>
                             </tr>
                             <tr class="sinr-good">
                                 <td><span class="badge bg-good">Baik</span></td>
-                                <td>-95 hingga -85</td>
-                                <td>Sinyal kuat, kualitas koneksi baik untuk sebagian besar aplikasi dan layanan</td>
+                                <td>13 hingga 20</td>
+                                <td>Kualitas sinyal baik, mendukung kecepatan data tinggi dan modulasi 64QAM</td>
                                 <td>Tidak diperlukan optimasi khusus, pantau secara berkala</td>
                             </tr>
                             <tr class="sinr-fair">
                                 <td><span class="badge bg-fair">Sedang</span></td>
-                                <td>-100 hingga -95</td>
-                                <td>Sinyal cukup, mungkin terjadi penurunan kecepatan pada aplikasi yang membutuhkan bandwidth tinggi</td>
+                                <td>0 hingga 13</td>
+                                <td>Kualitas sinyal cukup, mendukung modulasi 16QAM, mungkin terjadi penurunan kecepatan</td>
                                 <td>Pertimbangkan optimasi ringan seperti penyesuaian tilting antena</td>
                             </tr>
                             <tr class="sinr-poor">
                                 <td><span class="badge bg-poor">Buruk</span></td>
-                                <td>-105 hingga -100</td>
-                                <td>Sinyal lemah, koneksi tidak stabil terutama di dalam ruangan, panggilan mungkin terputus</td>
-                                <td>Diperlukan optimasi segera: periksa penghalang fisik, sesuaikan azimuth dan tilting antena</td>
+                                <td>-10 hingga 0</td>
+                                <td>Kualitas sinyal buruk, hanya mendukung modulasi QPSK, kecepatan data rendah</td>
+                                <td>Diperlukan optimasi segera: periksa sumber interferensi, sesuaikan azimuth dan tilting antena</td>
                             </tr>
                             <tr class="sinr-very-poor">
                                 <td><span class="badge bg-very-poor">Sangat Buruk</span></td>
-                                <td>-150 hingga -105</td>
-                                <td>Sinyal sangat lemah, koneksi sering terputus, layanan data sangat lambat atau tidak tersedia</td>
-                                <td>Diperlukan perbaikan menyeluruh: pertimbangkan penambahan small cell atau repeater</td>
+                                <td>-20 hingga -10</td>
+                                <td>Kualitas sinyal sangat buruk, koneksi tidak stabil, layanan data sangat lambat atau tidak tersedia</td>
+                                <td>Diperlukan perbaikan menyeluruh: identifikasi sumber interferensi, pertimbangkan penambahan small cell</td>
                             </tr>
                         </tbody>
                     </table>
@@ -213,32 +214,19 @@
         </div>
     </div>
 
-    <!-- Factors Affecting RSRP with Visual Icons -->
+    <!-- Factors Affecting SINR with Visual Icons -->
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="sinr-factors-section">
-                <h2 class="section-title">Faktor yang Mempengaruhi RSRP</h2>
+                <h2 class="section-title">Faktor yang Mempengaruhi SINR</h2>
                 <div class="row mt-4">
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <div class="sinr-factor-card">
-                            <div class="sinr-factor-icon">
-                                <i class="bi bi-building"></i>
-                            </div>
-                            <h3>Penghalang Fisik</h3>
-                            <p>Bangunan, dinding, pohon, dan objek fisik lainnya dapat menghalangi dan melemahkan sinyal.</p>
-                            <div class="sinr-factor-impact">
-                                <span>Dampak:</span>
-                                <div class="sinr-impact-meter high"></div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="sinr-factor-card">
                             <div class="sinr-factor-icon">
                                 <i class="bi bi-broadcast-pin"></i>
                             </div>
-                            <h3>Jarak dari Menara</h3>
-                            <p>Semakin jauh perangkat dari menara BTS, semakin lemah sinyal yang diterima.</p>
+                            <h3>Interferensi</h3>
+                            <p>Gangguan dari sel tetangga dan perangkat lain yang beroperasi pada frekuensi yang sama.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
                                 <div class="sinr-impact-meter very-high"></div>
@@ -248,10 +236,10 @@
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="sinr-factor-card">
                             <div class="sinr-factor-icon">
-                                <i class="bi bi-lightning"></i>
+                                <i class="bi bi-soundwave"></i>
                             </div>
-                            <h3>Interferensi</h3>
-                            <p>Gangguan dari menara lain dan perangkat elektronik dapat menurunkan kualitas sinyal.</p>
+                            <h3>Noise</h3>
+                            <p>Gangguan acak dari lingkungan dan perangkat elektronik yang mempengaruhi kualitas sinyal.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
                                 <div class="sinr-impact-meter high"></div>
@@ -261,13 +249,26 @@
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="sinr-factor-card">
                             <div class="sinr-factor-icon">
-                                <i class="bi bi-cloud-rain"></i>
+                                <i class="bi bi-building"></i>
                             </div>
-                            <h3>Kondisi Cuaca</h3>
-                            <p>Hujan lebat, salju, atau kabut dapat memengaruhi kekuatan sinyal dalam beberapa kondisi.</p>
+                            <h3>Penghalang Fisik</h3>
+                            <p>Bangunan, dinding, pohon, dan objek fisik lainnya dapat melemahkan sinyal dan meningkatkan interferensi.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
-                                <div class="sinr-impact-meter medium"></div>
+                                <div class="sinr-impact-meter high"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="sinr-factor-card">
+                            <div class="sinr-factor-icon">
+                                <i class="bi bi-broadcast"></i>
+                            </div>
+                            <h3>Jarak dari Menara</h3>
+                            <p>Semakin jauh perangkat dari menara BTS, semakin lemah sinyal yang diterima dibanding interferensi.</p>
+                            <div class="sinr-factor-impact">
+                                <span>Dampak:</span>
+                                <div class="sinr-impact-meter very-high"></div>
                             </div>
                         </div>
                     </div>
@@ -280,7 +281,7 @@
                                 <i class="bi bi-arrow-down-up"></i>
                             </div>
                             <h3>Konfigurasi Antena</h3>
-                            <p>Tilting, azimuth, dan ketinggian antena mempengaruhi area cakupan dan kekuatan sinyal.</p>
+                            <p>Tilting, azimuth, dan ketinggian antena mempengaruhi area cakupan dan tingkat interferensi.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
                                 <div class="sinr-impact-meter very-high"></div>
@@ -293,20 +294,7 @@
                                 <i class="bi bi-people"></i>
                             </div>
                             <h3>Kepadatan Pengguna</h3>
-                            <p>Area dengan banyak pengguna aktif dapat mengalami penurunan kualitas sinyal.</p>
-                            <div class="sinr-factor-impact">
-                                <span>Dampak:</span>
-                                <div class="sinr-impact-meter medium"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <div class="sinr-factor-card">
-                            <div class="sinr-factor-icon">
-                                <i class="bi bi-reception-3"></i>
-                            </div>
-                            <h3>Frekuensi Band</h3>
-                            <p>Band frekuensi yang berbeda memiliki karakteristik propagasi yang berbeda.</p>
+                            <p>Area dengan banyak pengguna aktif dapat mengalami peningkatan interferensi dan penurunan SINR.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
                                 <div class="sinr-impact-meter high"></div>
@@ -316,13 +304,26 @@
                     <div class="col-md-3 col-sm-6 mb-4">
                         <div class="sinr-factor-card">
                             <div class="sinr-factor-icon">
-                                <i class="bi bi-phone"></i>
+                                <i class="bi bi-reception-3"></i>
                             </div>
-                            <h3>Perangkat Pengguna</h3>
-                            <p>Kemampuan penerima pada perangkat pengguna dapat mempengaruhi kualitas sinyal.</p>
+                            <h3>Frekuensi Band</h3>
+                            <p>Band frekuensi yang berbeda memiliki karakteristik propagasi dan interferensi yang berbeda.</p>
                             <div class="sinr-factor-impact">
                                 <span>Dampak:</span>
-                                <div class="sinr-impact-meter low"></div>
+                                <div class="sinr-impact-meter medium"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <div class="sinr-factor-card">
+                            <div class="sinr-factor-icon">
+                                <i class="bi bi-lightning"></i>
+                            </div>
+                            <h3>Interferensi Eksternal</h3>
+                            <p>Gangguan dari perangkat non-jaringan dan sumber elektromagnetik lainnya.</p>
+                            <div class="sinr-factor-impact">
+                                <span>Dampak:</span>
+                                <div class="sinr-impact-meter medium"></div>
                             </div>
                         </div>
                     </div>
@@ -335,40 +336,40 @@
     <div class="row mt-5">
         <div class="col-md-12">
             <div class="sinr-improvement-card">
-                <h2 class="mb-4"><i class="bi bi-arrow-up-circle me-2 text-success"></i>Cara Meningkatkan RSRP</h2>
+                <h2 class="mb-4"><i class="bi bi-arrow-up-circle me-2 text-success"></i>Cara Meningkatkan SINR</h2>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="sinr-steps-list">
                             <div class="sinr-step">
                                 <div class="sinr-step-number">1</div>
                                 <div class="sinr-step-content">
-                                    <h4>Optimasi Penempatan Antena</h4>
-                                    <p>Posisikan antena di lokasi yang tinggi dan bebas dari penghalang fisik untuk memaksimalkan area cakupan.</p>
+                                    <h4>Identifikasi Sumber Interferensi</h4>
+                                    <p>Lakukan pengukuran untuk mengidentifikasi sumber utama interferensi dalam jaringan.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Lakukan site survey untuk mengidentifikasi lokasi optimal.</span>
+                                        <span>Tip: Gunakan alat pengukuran spektrum untuk mendeteksi interferensi dari sumber eksternal.</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="sinr-step">
                                 <div class="sinr-step-number">2</div>
                                 <div class="sinr-step-content">
-                                    <h4>Pengaturan Tilting Antena</h4>
-                                    <p>Sesuaikan kemiringan antena (mechanical dan electrical tilting) untuk memaksimalkan cakupan area yang diinginkan.</p>
+                                    <h4>Optimasi Frequency Planning</h4>
+                                    <p>Atur alokasi frekuensi untuk meminimalkan interferensi antar sel dalam jaringan.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Tilting yang terlalu besar dapat mengurangi cakupan, sedangkan tilting yang terlalu kecil dapat menyebabkan interferensi.</span>
+                                        <span>Tip: Implementasikan frequency reuse pattern yang optimal untuk mengurangi interferensi co-channel.</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="sinr-step">
                                 <div class="sinr-step-number">3</div>
                                 <div class="sinr-step-content">
-                                    <h4>Kontrol Daya Pancar</h4>
-                                    <p>Atur daya pancar untuk mengurangi interferensi dan memperbaiki coverage area yang diinginkan.</p>
+                                    <h4>Pengaturan Tilting Antena</h4>
+                                    <p>Sesuaikan kemiringan antena untuk mengurangi interferensi antar sel dan meningkatkan SINR.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Seimbangkan antara cakupan dan interferensi dengan pengaturan daya yang tepat.</span>
+                                        <span>Tip: Kombinasikan mechanical dan electrical tilting untuk hasil optimal.</span>
                                     </div>
                                 </div>
                             </div>
@@ -379,33 +380,33 @@
                             <div class="sinr-step">
                                 <div class="sinr-step-number">4</div>
                                 <div class="sinr-step-content">
-                                    <h4>Pemasangan Small Cell</h4>
-                                    <p>Tambahkan small cell di area dengan coverage yang buruk atau trafik yang tinggi untuk meningkatkan kapasitas dan cakupan.</p>
+                                    <h4>Implementasi Teknologi ICIC</h4>
+                                    <p>Terapkan Inter-Cell Interference Coordination untuk mengurangi interferensi di batas sel.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Small cell sangat efektif untuk area indoor dan hotspot dengan kepadatan pengguna tinggi.</span>
+                                        <span>Tip: Gunakan teknik seperti Soft Frequency Reuse (SFR) atau Fractional Frequency Reuse (FFR).</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="sinr-step">
                                 <div class="sinr-step-number">5</div>
                                 <div class="sinr-step-content">
-                                    <h4>Penambahan Repeater</h4>
-                                    <p>Gunakan repeater untuk memperkuat sinyal di area dengan coverage yang lemah, terutama di dalam gedung.</p>
+                                    <h4>Pemasangan Small Cell</h4>
+                                    <p>Tambahkan small cell di area dengan SINR rendah untuk meningkatkan kualitas sinyal.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Pastikan repeater dipasang dengan benar untuk menghindari interferensi dengan jaringan utama.</span>
+                                        <span>Tip: Koordinasikan small cell dengan macro cell untuk menghindari interferensi tambahan.</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="sinr-step">
                                 <div class="sinr-step-number">6</div>
                                 <div class="sinr-step-content">
-                                    <h4>Analisis Drive Test</h4>
-                                    <p>Lakukan drive test secara berkala untuk mengidentifikasi dan memperbaiki area dengan sinyal lemah.</p>
+                                    <h4>Penggunaan Beamforming</h4>
+                                    <p>Implementasikan teknologi beamforming untuk mengarahkan sinyal ke pengguna dan mengurangi interferensi.</p>
                                     <div class="sinr-step-tip">
                                         <i class="bi bi-lightbulb"></i>
-                                        <span>Tip: Gunakan hasil drive test untuk membuat peta panas (heat map) kualitas sinyal.</span>
+                                        <span>Tip: Beamforming sangat efektif dalam jaringan MIMO untuk meningkatkan SINR.</span>
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +432,7 @@
                         </div>
                         <div class="sinr-recommendation-text">
                             <h4>Analisis Komprehensif</h4>
-                            <p>Untuk hasil terbaik, lakukan pengukuran RSRP pada berbagai waktu dan lokasi untuk mendapatkan gambaran yang komprehensif tentang kualitas jaringan di area Anda.</p>
+                            <p>Untuk hasil terbaik, lakukan pengukuran SINR bersamaan dengan parameter lain seperti RSRP dan RSRQ untuk mendapatkan gambaran yang komprehensif tentang kualitas jaringan.</p>
                         </div>
                     </div>
                     
@@ -441,17 +442,17 @@
                         </div>
                         <div class="sinr-recommendation-text">
                             <h4>Pendekatan Holistik</h4>
-                            <p>Optimasi RSRP harus dilakukan bersamaan dengan parameter lain seperti SINR dan RSRQ untuk mendapatkan hasil terbaik.</p>
+                            <p>Optimasi SINR harus mempertimbangkan trade-off antara cakupan, kapasitas, dan kualitas untuk mencapai kinerja jaringan yang optimal.</p>
                         </div>
                     </div>
                     
                     <div class="sinr-best-practices">
                         <h4><i class="bi bi-check-circle me-2"></i>Praktik Terbaik</h4>
                         <ul>
-                            <li>Lakukan pengukuran pada jam sibuk dan jam sepi</li>
-                            <li>Bandingkan nilai RSRP indoor dan outdoor</li>
-                            <li>Dokumentasikan perubahan konfigurasi dan dampaknya</li>
-                            <li>Evaluasi hasil optimasi secara berkala</li>
+                            <li>Lakukan pengukuran pada jam sibuk untuk menilai SINR dalam kondisi beban tinggi</li>
+                            <li>Bandingkan nilai SINR di pusat sel dan batas sel</li>
+                            <li>Evaluasi dampak perubahan konfigurasi terhadap SINR dan throughput</li>
+                            <li>Gunakan teknik mitigasi interferensi yang sesuai dengan jenis interferensi yang dominan</li>
                         </ul>
                     </div>
                 </div>
@@ -464,8 +465,8 @@
         <div class="col-md-12">
             <div class="sinr-cta-section">
                 <div class="sinr-cta-content">
-                    <h2 class="sinr-cta-title">Analisis Data RSRP Anda Sekarang</h2>
-                    <p class="sinr-cta-description">Unggah file data jaringan Anda untuk mendapatkan analisis RSRP dan rekomendasi optimasi yang disesuaikan dengan kebutuhan jaringan Anda.</p>
+                    <h2 class="sinr-cta-title">Analisis Data SINR Anda Sekarang</h2>
+                    <p class="sinr-cta-description">Unggah file data jaringan Anda untuk mendapatkan analisis SINR dan rekomendasi optimasi yang disesuaikan dengan kebutuhan jaringan Anda.</p>
                     <div class="sinr-cta-buttons">
                         <a href="{{ url_for('upload_file') }}" class="btn btn-light sinr-cta-button-primary">
                             <i class="bi bi-upload me-2"></i>Unggah File Sekarang

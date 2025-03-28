@@ -387,7 +387,7 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* ======= HALAMAN UPLOAD FILE & RESULT (STYLING BARU) ======= */
+/* ======= HALAMAN UPLOAD FILE & RESULT ======= */
 /* Kartu Upload dan Hasil */
 .upload-card, .result-card {
     background-color: var(--bg-white);
@@ -773,6 +773,20 @@ body {
     margin-bottom: 0;
 }
 
+/* Styling untuk pagination di sebelah kanan */
+.dataTables_paginate {
+    text-align: right !important;
+    float: right !important;
+    padding-right: 0.5rem !important;
+}
+
+/* Styling untuk info "Menampilkan x hingga y dari z data" di kiri */
+.dataTables_info {
+    text-align: left !important;
+    float: left !important;
+    padding-left: 0.5rem !important;
+}
+
 .table th {
     background-color: rgba(123, 104, 238, 0.1);
     color: var(--text-primary);
@@ -936,21 +950,6 @@ body {
 }
 
 /* ======= HALAMAN PARAMETER 4G ======= */
-/* Mempertahankan styling asli untuk halaman Parameter 4G */
-.info-card{
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 25px;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-}
-.info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-.bg-normal {
-    background-color: #b6db8f; /* Warna hijau muda */
-}
 
 /* visualisasi rsrp */
 .chart-container {
