@@ -2,18 +2,18 @@
 
 {% block content %}
 <div class="container">
-    <div class="upload-card">
+    <div class="upload-card" data-aos="fade-up">
         <div class="upload-header">
-            <div class="upload-icon">
+            <div class="upload-icon" data-aos="zoom-in" data-aos-delay="300">
                 <i class="bi bi-cloud-upload"></i>
             </div>
-            <h2>Upload File Data Jaringan</h2>
-            <p class="text-muted">Unggah file CSV untuk analisis optimasi jaringan</p>
+            <h2 data-aos="zoom-out">Upload File Data Jaringan</h2>
+            <p data-aos="zoom-out" class="text-muted">Unggah file CSV untuk analisis optimasi jaringan</p>
         </div>
 
         <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
             <div class="row g-4">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="400">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="siteId" name="siteId" placeholder="Site ID" value="{{ site_id if site_id else '' }}">
                         <label for="siteId"><i class="bi bi-geo-alt me-2"></i>Site ID</label>
@@ -24,7 +24,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="alamatSite" name="alamatSite" placeholder="Alamat Site" value="{{ alamat_site if alamat_site else '' }}">
                         <label for="alamatSite"><i class="bi bi-pin-map me-2"></i>Alamat Site</label>
@@ -36,31 +36,32 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="file-upload-wrapper mt-4">
-                <div class="file-upload-message">
-                    <i class="bi bi-file-earmark-arrow-up"></i>
-                    <p>Drag & drop file CSV atau klik untuk memilih</p>
-                    <span class="file-limit">Format .csv dengan ukuran maksimal 10 MB</span>
+            <div data-aos="zoom-in" data-aos-delay="500">
+                <div class="file-upload-wrapper mt-4">
+                    <div class="file-upload-message">
+                        <i class="bi bi-file-earmark-arrow-up"></i>
+                        <p>Drag & drop file CSV atau klik untuk memilih</p>
+                        <span class="file-limit">Format .csv dengan ukuran maksimal 10 MB</span>
+                    </div>
+                    <input type="file" class="file-upload-input" id="fileUpload" name="file" accept=".csv" required>
+                    <div class="file-upload-preview">
+                        <span class="file-name">Tidak ada file dipilih</span>
+                        <button type="button" class="btn-remove-file"><i class="bi bi-x"></i></button>
+                    </div>
+                    {% if error %}
+                        <div class="error-message show">{{ error }}</div>
+                    {% endif %}
                 </div>
-                <input type="file" class="file-upload-input" id="fileUpload" name="file" accept=".csv" required>
-                <div class="file-upload-preview">
-                    <span class="file-name">Tidak ada file dipilih</span>
-                    <button type="button" class="btn-remove-file"><i class="bi bi-x"></i></button>
+                
+                <div class="text-center mt-4">
+                    <button type="submit" id="analyzeBtn" class="btn-primary-action">
+                        <i class="bi bi-bar-chart me-2"></i>Analisa
+                    </button>
                 </div>
-                {% if error %}
-                    <div class="error-message show">{{ error }}</div>
-                {% endif %}
-            </div>
-            
-            <div class="text-center mt-4">
-                <button type="submit" id="analyzeBtn" class="btn-primary-action">
-                    <i class="bi bi-bar-chart me-2"></i>Analisa
-                </button>
             </div>
         </form>
         
-        <div class="results-preview mt-5">
+        <div class="results-preview mt-5" data-aos="zoom-in">
             <h3><i class="bi bi-pie-chart me-2"></i>Rekomendasi Optimasi Jaringan</h3>
             <div class="empty-state">
                 <img src="{{ url_for('static', filename='images/empty-state.svg') }}" alt="Empty state" class="empty-state-img">

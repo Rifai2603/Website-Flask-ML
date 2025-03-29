@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="container">
-    <div class="result-card">
+    <div class="result-card" data-aos="fade-up">
         <div class="result-header">
-            <div class="result-icon">
+            <div class="result-icon" data-aos="zoom-in" data-aos-delay="300">
                 <i class="bi bi-graph-up"></i>
             </div>
             <h2>Hasil Analisis Data Jaringan</h2>
@@ -13,7 +13,7 @@
 
         <div class="site-info-container">
             <div class="row g-4">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="400">
                     <div class="site-info-card">
                         <div class="site-info-icon">
                             <i class="bi bi-geo-alt"></i>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="400">
                     <div class="site-info-card">
                         <div class="site-info-icon">
                             <i class="bi bi-pin-map"></i>
@@ -38,7 +38,7 @@
             </div>
         </div>
         
-        <div class="action-buttons mt-4">
+        <div class="action-buttons mt-4" data-aos="zoom-in" data-aos-delay="500">
             <a href="{{ url_for('download_result', site_id=site_id) }}" class="btn-download" id="downloadCSV">
                 <i class="bi bi-download me-2"></i>Download Hasil Analisis
             </a>
@@ -47,7 +47,7 @@
             </a>
         </div>
         
-        <div class="recommendation-container mt-5">
+        <div class="recommendation-container mt-5" data-aos="zoom-in" data-aos-delay="600">
             <div class="recommendation-header">
                 <i class="bi bi-lightbulb me-2"></i>
                 <h3>Rekomendasi Optimasi Jaringan</h3>

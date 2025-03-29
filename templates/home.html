@@ -2,7 +2,7 @@
 {% block content %}
 <div class="home-container">
     <!-- Hero Section -->
-    <div class="hero-section" data-aos="zoom-in">
+    <div class="hero-section" data-aos="fade-up">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
-                    <div class="hero-image">
+                    <div class="hero-image" data-aos="zoom-in">
                         <img src="{{ url_for('static', filename='images/4G-Logo.png') }}" alt="Network Optimization" class="img-fluid floating-image">
                     </div>
                 </div>
@@ -28,11 +28,11 @@
     </div>
 
     <!-- Features Section -->
-    <div class="features-section">
+    <div class="features-section" data-aos="fade-up">
         <div class="container">
-            <h2 class="section-title text-center">Fitur Unggulan</h2>
+            <h2 class="section-title text-center" data-aos="fade-up">Fitur Unggulan</h2>
             <div class="row">
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="fade-right">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-bar-chart-line"></i>
@@ -41,7 +41,7 @@
                         <p class="feature-description">Analisis mendalam terhadap parameter jaringan 4G untuk mengidentifikasi area yang perlu dioptimalkan.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="zoom-in">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-lightning-charge"></i>
@@ -50,7 +50,7 @@
                         <p class="feature-description">Dapatkan rekomendasi optimasi yang cepat dan akurat berdasarkan data jaringan Anda.</p>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="fade-left">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-graph-up-arrow"></i>
@@ -64,11 +64,11 @@
     </div>
 
     <!-- Parameters Section -->
-    <div class="parameters-section">
+    <div class="parameters-section" data-aos="fade-up"> 
         <div class="container">
-            <h2 class="section-title text-center">Parameter Utama</h2>
+            <h2 class="section-title text-center" data-aos="zoom-in-down">Parameter Utama</h2>
             <div class="row">
-                <div class="col-md-3 mb-4">
+                <div class="col-md-3 mb-4" data-aos="fade-right">
                     <div class="parameter-card">
                         <div class="parameter-icon">
                             <i class="bi bi-broadcast-pin"></i>
@@ -78,7 +78,7 @@
                         <a href="{{ url_for('rsrp') }}" class="btn btn-sm btn-outline-primary mt-2">Pelajari</a>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-md-3 mb-4" data-aos="zoom-out">
                     <div class="parameter-card">
                         <div class="parameter-icon">
                             <i class="bi bi-reception-4"></i>
@@ -88,7 +88,7 @@
                         <a href="{{ url_for('sinr') }}" class="btn btn-sm btn-outline-primary mt-2">Pelajari</a>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-md-3 mb-4" data-aos="zoom-out">
                     <div class="parameter-card">
                         <div class="parameter-icon">
                             <i class="bi bi-download"></i>
@@ -98,7 +98,7 @@
                         <a href="{{ url_for('throughput_dl') }}" class="btn btn-sm btn-outline-primary mt-2">Pelajari</a>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-md-3 mb-4" data-aos="fade-left">
                     <div class="parameter-card">
                         <div class="parameter-icon">
                             <i class="bi bi-upload"></i>
@@ -113,7 +113,7 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="cta-section">
+    <div class="cta-section" data-aos="fade-up">
         <div class="container text-center">
             <h2 class="cta-title">Siap Untuk Mengoptimalkan Jaringan 4G Anda?</h2>
             <p class="cta-description">Unggah data jaringan Anda sekarang dan dapatkan rekomendasi optimasi yang tepat sasaran</p>

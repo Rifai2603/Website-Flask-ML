@@ -354,7 +354,6 @@ body {
     background: linear-gradient(135deg, #7b68ee 0%, #6a5acd 100%);
     color: white;
     padding: 60px 0;
-    margin-bottom: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(123, 104, 238, 0.3);
 }
@@ -396,7 +395,6 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     padding: 2rem;
-    margin-bottom: 2rem;
     transition: var(--transition);
 }
 
@@ -983,7 +981,7 @@ body {
   
   .rsrp-summary {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     background-color: rgba(33, 150, 243, 0.1) !important;
     border-left: 4px solid #2196f3 !important;
     border-radius: var(--radius-md);
@@ -995,7 +993,6 @@ body {
     color: #2196f3;
     font-size: 1.5rem;
     margin-right: 1rem;
-    margin-top: 0.2rem;
   }
   
   .rsrp-summary p {
@@ -1310,7 +1307,7 @@ body {
   
   .sinr-summary {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     background-color: rgba(33, 150, 243, 0.1) !important;
     border-left: 4px solid #2196f3 !important;
     border-radius: var(--radius-md);
@@ -1322,7 +1319,6 @@ body {
     color: #2196f3;
     font-size: 1.5rem;
     margin-right: 1rem;
-    margin-top: 0.2rem;
   }
   
   .sinr-summary p {
@@ -1637,7 +1633,7 @@ body {
   
   .dl-summary {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     background-color: rgba(33, 150, 243, 0.1) !important;
     border-left: 4px solid #2196f3 !important;
     border-radius: var(--radius-md);
@@ -1649,7 +1645,6 @@ body {
     color: #2196f3;
     font-size: 1.5rem;
     margin-right: 1rem;
-    margin-top: 0.2rem;
   }
   
   .dl-summary p {
@@ -1964,7 +1959,7 @@ body {
   
   .ul-summary {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     background-color: rgba(33, 150, 243, 0.1) !important;
     border-left: 4px solid #2196f3 !important;
     border-radius: var(--radius-md);
@@ -1976,7 +1971,6 @@ body {
     color: #2196f3;
     font-size: 1.5rem;
     margin-right: 1rem;
-    margin-top: 0.2rem;
   }
   
   .ul-summary p {

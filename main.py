@@ -294,10 +294,10 @@ def generate_rsrp_maps(df, analysis_id):
         os.makedirs(maps_dir)
     
     # Definisikan warna untuk kelas RSRP
-    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    colors = ['#dc3545', '#FFFF00', '#8ac926', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
     # Definisikan batasan nilai untuk kategori RSRP
-    bounds = [-150, -105, -100, -95, -85, -44]
+    bounds = [-150, -105, -100, -95, -85, 0]
     
     # Hitung rata-rata koordinat untuk center peta
     center_lat = df['Latitude'].mean()
@@ -310,7 +310,7 @@ def generate_rsrp_maps(df, analysis_id):
         elif rsrp >= -95:
             return '#198754'  # Hijau (Bagus)
         elif rsrp >= -100:
-            return '#b6db8f'  # Hijau Muda (Normal)
+            return '#8ac926'  # Hijau Muda (Normal)
         elif rsrp >= -105:
             return '#FFFF00'  # Kuning (Buruk)
         else:
@@ -433,7 +433,7 @@ def generate_sinr_maps(df, analysis_id):
         os.makedirs(maps_dir)
     
     # Definisikan warna untuk kelas SINR
-    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    colors = ['#dc3545', '#FFFF00', '#8ac926', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
     # Definisikan batasan nilai untuk kategori SINR
     bounds = [-20, -5, 0, 5, 10, 50]
@@ -449,7 +449,7 @@ def generate_sinr_maps(df, analysis_id):
         elif sinr >= 5:
             return '#198754'  # Hijau (Bagus)
         elif sinr >= 0:
-            return '#b6db8f'  # Hijau Muda (Normal)
+            return '#8ac926'  # Hijau Muda (Normal)
         elif sinr >= -5:
             return '#FFFF00'  # Kuning (Buruk)
         else:
@@ -572,7 +572,7 @@ def generate_downlink_maps(df, analysis_id):
         os.makedirs(maps_dir)
     
     # Definisikan warna untuk kelas Downlink
-    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    colors = ['#dc3545', '#FFFF00', '#8ac926', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
     # Definisikan batasan nilai untuk kategori Downlink
     bounds = [0, 3000, 5000, 10000, 20000, 300000]
@@ -588,7 +588,7 @@ def generate_downlink_maps(df, analysis_id):
         elif throughput_dl >= 10000:
             return '#198754'  # Hijau (Bagus)
         elif throughput_dl >= 5000:
-            return '#b6db8f'  # Hijau Muda (Normal)
+            return '#8ac926'  # Hijau Muda (Normal)
         elif throughput_dl >= 3000:
             return '#FFFF00'  # Kuning (Buruk)
         else:
@@ -711,7 +711,7 @@ def generate_uplink_maps(df, analysis_id):
         os.makedirs(maps_dir)
     
     # Definisikan warna untuk kelas Uplink
-    colors = ['#dc3545', '#FFFF00', '#b6db8f', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
+    colors = ['#dc3545', '#FFFF00', '#8ac926', '#198754', '#0d6efd']  # Merah, Kuning, Hijau Muda, Hijau, Biru
     
     # Definisikan batasan nilai untuk kategori Uplink
     bounds = [0, 1000, 5000, 10000, 20000, 300000]
@@ -727,7 +727,7 @@ def generate_uplink_maps(df, analysis_id):
         elif throughput_ul >= 10000:
             return '#198754'  # Hijau (Bagus)
         elif throughput_ul >= 5000:
-            return '#b6db8f'  # Hijau Muda (Normal)
+            return '#8ac926'  # Hijau Muda (Normal)
         elif throughput_ul >= 1000:
             return '#FFFF00'  # Kuning (Buruk)
         else:

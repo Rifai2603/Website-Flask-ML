@@ -3,7 +3,7 @@
 
 <div class="container">
     <!-- Hero Section with Gradient Background -->
-    <div class="row mt-4">
+    <div class="row mt-4" data-aos="fade-up">
         <div class="col-md-12">
             <div class="ul-hero-section">
                 <div class="row align-items-center">
@@ -23,11 +23,11 @@
                                     <span class="ul-stat-label">Teknologi</span>
                                 </div>
                                 <div class="ul-stat-item">
-                                    <span class="ul-stat-value">Mbps</span>
+                                    <span class="ul-stat-value">Kbps</span>
                                     <span class="ul-stat-label">Satuan</span>
                                 </div>
                                 <div class="ul-stat-item">
-                                    <span class="ul-stat-value">0 ~ 50+</span>
+                                    <span class="ul-stat-value">0 ~ 300.000</span>
                                     <span class="ul-stat-label">Rentang Nilai</span>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
 
     <!-- Throughput UL Info Section with Card Layout -->
     <div class="row mt-5" id="ul-info">
-        <div class="col-md-8">
+        <div class="col-md-8" data-aos="fade-right">
             <div class="ul-info-card">
                 <h3 class="mb-4"><i class="bi bi-upload me-2 text-primary"></i>Apa itu Throughput Uplink?</h3>
                 <p>Throughput Uplink adalah pengukuran kecepatan unggah data dalam jaringan LTE yang menunjukkan seberapa cepat data dapat dikirim dari perangkat pengguna ke jaringan. Throughput Uplink merupakan indikator penting untuk mengevaluasi performa dan kapasitas jaringan 4G, terutama untuk aplikasi yang membutuhkan pengiriman data dari pengguna.</p>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="ul-definition-content">
                         <h4>Definisi Teknis</h4>
-                        <p>Throughput Uplink adalah jumlah data yang berhasil dikirim oleh perangkat pengguna ke jaringan dalam satuan waktu tertentu, biasanya diukur dalam Megabit per detik (Mbps).</p>
+                        <p>Throughput Uplink adalah jumlah data yang berhasil dikirim oleh perangkat pengguna ke jaringan dalam satuan waktu tertentu, biasanya diukur dalam Kilobit per detik (Kbps).</p>
                     </div>
                 </div>
                 
@@ -111,17 +111,18 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" data-aos="fade-left">
             <div class="ul-scale-card">
-                <h3 class="text-center mb-4">Skala Nilai Throughput Uplink</h3>
+                <h3 class="text-center mb-4">Skala Nilai Throughput Uplink (Kbps)</h3>
                 <div class="ul-scale-visual">
                     <div class="ul-gradient-bar"></div>
                     <div class="ul-scale-markers">
-                        <span class="ul-marker" style="left: 0%">0 Mbps</span>
-                        <span class="ul-marker" style="left: 25%">5 Mbps</span>
-                        <span class="ul-marker" style="left: 50%">15 Mbps</span>
-                        <span class="ul-marker" style="left: 75%">30 Mbps</span>
-                        <span class="ul-marker" style="left: 100%">50+ Mbps</span>
+                        <span class="ul-marker" style="left: 0%">0</span>
+                        <span class="ul-marker" style="left: 20%">1.000</span>
+                        <span class="ul-marker" style="left: 40%">5.000</span>
+                        <span class="ul-marker" style="left: 60%">10.000</span>
+                        <span class="ul-marker" style="left: 80%">20.000</span>
+                        <span class="ul-marker" style="left: 100%">300.000</span>
                     </div>
                 </div>
         
@@ -150,9 +151,9 @@
         
                 <div class="ul-unit-box">
                     <h4><i class="bi bi-info-circle me-2"></i>Satuan Pengukuran</h4>
-                    <p>Throughput Uplink diukur dalam <strong>Mbps</strong> (Megabit per second), yang menunjukkan jumlah data yang dapat diunggah dalam satu detik.</p>
+                    <p>Throughput Uplink diukur dalam <strong>Kbps</strong> (Megabit per second), yang menunjukkan jumlah data yang dapat diunggah dalam satu detik.</p>
                     <div class="ul-formula">
-                        <span>1 Mbps = 1,000,000 bit per detik</span>
+                        <span>1 Kbps = 1.000 bit per detik</span>
                     </div>
                 </div>
             </div>
@@ -160,7 +161,7 @@
     </div>
 
     <!-- Throughput UL Quality Table with Enhanced Styling -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="zoom-in">
         <div class="col-md-12">
             <div class="ul-table-container">
                 <div class="ul-table-header">
@@ -171,7 +172,7 @@
                         <thead>
                             <tr>
                                 <th width="15%">Kualitas Koneksi</th>
-                                <th width="15%">Nilai (Mbps)</th>
+                                <th width="15%">Nilai (Kbps)</th>
                                 <th width="35%">Interpretasi</th>
                                 <th width="35%">Rekomendasi</th>
                             </tr>
@@ -179,31 +180,31 @@
                         <tbody>
                             <tr class="ul-excellent">
                                 <td><span class="badge bg-excellent">Sangat Baik</span></td>
-                                <td>30+ Mbps</td>
+                                <td>20.000 hingga 300.000</td>
                                 <td>Kecepatan unggah sangat tinggi, optimal untuk live streaming HD, video call berkualitas tinggi, dan unggah file besar dengan cepat</td>
                                 <td>Pertahankan konfigurasi saat ini, dapat dijadikan referensi untuk site lain</td>
                             </tr>
                             <tr class="ul-good">
                                 <td><span class="badge bg-good">Baik</span></td>
-                                <td>15 - 30 Mbps</td>
+                                <td>10.000 hingga 20.000</td>
                                 <td>Kecepatan unggah tinggi, baik untuk sebagian besar aplikasi termasuk video call dan unggah file</td>
                                 <td>Tidak diperlukan optimasi khusus, pantau secara berkala</td>
                             </tr>
                             <tr class="ul-fair">
                                 <td><span class="badge bg-fair">Sedang</span></td>
-                                <td>5 - 15 Mbps</td>
+                                <td>5.000 hingga 10.000</td>
                                 <td>Kecepatan unggah cukup, dapat mengalami keterlambatan pada video call berkualitas tinggi atau unggah file besar</td>
                                 <td>Pertimbangkan optimasi ringan seperti penyesuaian alokasi resource block uplink</td>
                             </tr>
                             <tr class="ul-poor">
                                 <td><span class="badge bg-poor">Buruk</span></td>
-                                <td>1 - 5 Mbps</td>
+                                <td>1.000 hingga 5.000</td>
                                 <td>Kecepatan unggah rendah, video call terbatas pada kualitas rendah, unggah file lambat</td>
                                 <td>Diperlukan optimasi segera: periksa interferensi, daya pancar perangkat, dan konfigurasi antena</td>
                             </tr>
                             <tr class="ul-very-poor">
                                 <td><span class="badge bg-very-poor">Sangat Buruk</span></td>
-                                <td>0 - 1 Mbps</td>
+                                <td>0 hingga 5.000</td>
                                 <td>Kecepatan unggah sangat rendah, hanya cocok untuk pesan teks, video call dan unggah file sulit dilakukan</td>
                                 <td>Diperlukan perbaikan menyeluruh: evaluasi kapasitas uplink, interferensi, dan pertimbangkan penambahan kapasitas</td>
                             </tr>
@@ -215,7 +216,7 @@
     </div>
 
     <!-- Factors Affecting Throughput UL with Visual Icons -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="ul-factors-section">
                 <h2 class="section-title">Faktor yang Mempengaruhi Throughput Uplink</h2>
@@ -333,7 +334,7 @@
     </div>
 
     <!-- Improvement Methods with Step-by-Step Guide -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="zoom-in">
         <div class="col-md-12">
             <div class="ul-improvement-card">
                 <h2 class="mb-4"><i class="bi bi-arrow-up-circle me-2 text-success"></i>Cara Meningkatkan Throughput Uplink</h2>
@@ -418,7 +419,7 @@
     </div>
 
     <!-- Recommendation Section with Enhanced Visual Appeal -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="ul-recommendation-container">
                 <div class="ul-recommendation-header">
@@ -461,12 +462,12 @@
     </div>
 
     <!-- CTA Section with Gradient Background -->
-    <div class="row mt-5 mb-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="ul-cta-section">
                 <div class="ul-cta-content">
-                    <h2 class="ul-cta-title">Analisis Data Throughput Uplink Anda Sekarang</h2>
-                    <p class="ul-cta-description">Unggah file data jaringan Anda untuk mendapatkan analisis throughput uplink dan rekomendasi optimasi yang disesuaikan dengan kebutuhan jaringan Anda.</p>
+                    <h2 class="ul-cta-title">Analisis Data Drive Test Anda Sekarang</h2>
+                    <p class="ul-cta-description">Unggah file data pengujian jaringan Anda untuk mendapatkan rekomendasi optimasi dan prediksi nilai parameter Throughput Uplink yang disesuaikan dengan jenis optimasi jaringan yang direkomendasikan</p>
                     <div class="ul-cta-buttons">
                         <a href="{{ url_for('upload_file') }}" class="btn btn-light ul-cta-button-primary">
                             <i class="bi bi-upload me-2"></i>Unggah File Sekarang
@@ -477,7 +478,12 @@
                     </div>
                 </div>
                 <div class="ul-cta-decoration">
-                    <div class="ul-cta-wave"></div>
+                    <div class="ul-cta-wave">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="width:100%; height:100%;">
+                            <path fill="#ffffff" fill-opacity="0.3"
+                              d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L0,320Z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>

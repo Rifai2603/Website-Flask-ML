@@ -3,7 +3,7 @@
 
 <div class="container">
     <!-- Hero Section with Gradient Background -->
-    <div class="row mt-4">
+    <div class="row mt-4" data-aos="fade-up">
         <div class="col-md-12">
             <div class="dl-hero-section">
                 <div class="row align-items-center">
@@ -23,11 +23,11 @@
                                     <span class="dl-stat-label">Teknologi</span>
                                 </div>
                                 <div class="dl-stat-item">
-                                    <span class="dl-stat-value">Mbps</span>
+                                    <span class="dl-stat-value">Kbps</span>
                                     <span class="dl-stat-label">Satuan</span>
                                 </div>
                                 <div class="dl-stat-item">
-                                    <span class="dl-stat-value">0 ~ 150+</span>
+                                    <span class="dl-stat-value">0 ~ 300.000</span>
                                     <span class="dl-stat-label">Rentang Nilai</span>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
 
     <!-- Throughput DL Info Section with Card Layout -->
     <div class="row mt-5" id="dl-info">
-        <div class="col-md-8">
+        <div class="col-md-8" data-aos="fade-right">
             <div class="dl-info-card">
                 <h3 class="mb-4"><i class="bi bi-download me-2 text-primary"></i>Apa itu Throughput Downlink?</h3>
                 <p>Throughput Downlink adalah pengukuran kecepatan unduh data dalam jaringan LTE yang menunjukkan seberapa cepat data dapat diterima oleh perangkat pengguna dari jaringan. Throughput Downlink merupakan indikator utama untuk mengevaluasi performa dan kapasitas jaringan 4G.</p>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="dl-definition-content">
                         <h4>Definisi Teknis</h4>
-                        <p>Throughput Downlink adalah jumlah data yang berhasil diterima oleh perangkat pengguna dari jaringan dalam satuan waktu tertentu, biasanya diukur dalam Megabit per detik (Mbps).</p>
+                        <p>Throughput Downlink adalah jumlah data yang berhasil diterima oleh perangkat pengguna dari jaringan dalam satuan waktu tertentu, biasanya diukur dalam Kilobit per detik (Kbps).</p>
                     </div>
                 </div>
                 
@@ -111,17 +111,18 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" data-aos="fade-left">
             <div class="dl-scale-card">
-                <h3 class="text-center mb-4">Skala Nilai Throughput Downlink</h3>
+                <h3 class="text-center mb-4">Skala Nilai Throughput Downlink (Kbps)</h3>
                 <div class="dl-scale-visual">
                     <div class="dl-gradient-bar"></div>
                     <div class="dl-scale-markers">
-                        <span class="dl-marker" style="left: 0%">0 Mbps</span>
-                        <span class="dl-marker" style="left: 25%">10 Mbps</span>
-                        <span class="dl-marker" style="left: 50%">30 Mbps</span>
-                        <span class="dl-marker" style="left: 75%">70 Mbps</span>
-                        <span class="dl-marker" style="left: 100%">100+ Mbps</span>
+                        <span class="dl-marker" style="left: 0%">0</span>
+                        <span class="dl-marker" style="left: 20%">3.000</span>
+                        <span class="dl-marker" style="left: 40%">5.000</span>
+                        <span class="dl-marker" style="left: 60%">10.000</span>
+                        <span class="dl-marker" style="left: 80%">20.000</span>
+                        <span class="dl-marker" style="left: 100%">300.000</span>
                     </div>
                 </div>
         
@@ -150,9 +151,9 @@
         
                 <div class="dl-unit-box">
                     <h4><i class="bi bi-info-circle me-2"></i>Satuan Pengukuran</h4>
-                    <p>Throughput Downlink diukur dalam <strong>Mbps</strong> (Megabit per second), yang menunjukkan jumlah data yang dapat diunduh dalam satu detik.</p>
+                    <p>Throughput Downlink diukur dalam <strong>Kbps</strong> (Kilobit per second), yang menunjukkan jumlah data yang dapat diunduh dalam satu detik.</p>
                     <div class="dl-formula">
-                        <span>1 Mbps = 1,000,000 bit per detik</span>
+                        <span>1 Kbps = 1.000 bit per detik</span>
                     </div>
                 </div>
             </div>
@@ -160,7 +161,7 @@
     </div>
 
     <!-- Throughput DL Quality Table with Enhanced Styling -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="zoom-in">
         <div class="col-md-12">
             <div class="dl-table-container">
                 <div class="dl-table-header">
@@ -171,7 +172,7 @@
                         <thead>
                             <tr>
                                 <th width="15%">Kualitas Koneksi</th>
-                                <th width="15%">Nilai (Mbps)</th>
+                                <th width="15%">Nilai (Kbps)</th>
                                 <th width="35%">Interpretasi</th>
                                 <th width="35%">Rekomendasi</th>
                             </tr>
@@ -179,31 +180,31 @@
                         <tbody>
                             <tr class="dl-excellent">
                                 <td><span class="badge bg-excellent">Sangat Baik</span></td>
-                                <td>70+ Mbps</td>
+                                <td>20.000 hingga 300.000</td>
                                 <td>Kecepatan unduh sangat tinggi, optimal untuk semua jenis aplikasi termasuk streaming 4K, download file besar, dan gaming online</td>
                                 <td>Pertahankan konfigurasi saat ini, dapat dijadikan referensi untuk site lain</td>
                             </tr>
                             <tr class="dl-good">
                                 <td><span class="badge bg-good">Baik</span></td>
-                                <td>30 - 70 Mbps</td>
+                                <td>10.000 hingga 20.000</td>
                                 <td>Kecepatan unduh tinggi, baik untuk sebagian besar aplikasi termasuk streaming HD dan download file</td>
                                 <td>Tidak diperlukan optimasi khusus, pantau secara berkala</td>
                             </tr>
                             <tr class="dl-fair">
                                 <td><span class="badge bg-fair">Sedang</span></td>
-                                <td>10 - 30 Mbps</td>
+                                <td>5.000 hingga 10.000</td>
                                 <td>Kecepatan unduh cukup, dapat mengalami buffering pada streaming kualitas tinggi atau download file besar</td>
                                 <td>Pertimbangkan optimasi ringan seperti penyesuaian alokasi resource block</td>
                             </tr>
                             <tr class="dl-poor">
                                 <td><span class="badge bg-poor">Buruk</span></td>
-                                <td>3 - 10 Mbps</td>
+                                <td>3.000 hingga 5.000</td>
                                 <td>Kecepatan unduh rendah, streaming video terbatas pada kualitas rendah, download file lambat</td>
                                 <td>Diperlukan optimasi segera: periksa interferensi, kapasitas backhaul, dan konfigurasi antena</td>
                             </tr>
                             <tr class="dl-very-poor">
                                 <td><span class="badge bg-very-poor">Sangat Buruk</span></td>
-                                <td>0 - 3 Mbps</td>
+                                <td>0 hingga 3.000</td>
                                 <td>Kecepatan unduh sangat rendah, hanya cocok untuk browsing ringan dan pesan teks, aplikasi multimedia tidak berfungsi dengan baik</td>
                                 <td>Diperlukan perbaikan menyeluruh: evaluasi kapasitas sel, interferensi, dan pertimbangkan penambahan kapasitas</td>
                             </tr>
@@ -215,7 +216,7 @@
     </div>
 
     <!-- Factors Affecting Throughput DL with Visual Icons -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="dl-factors-section">
                 <h2 class="section-title">Faktor yang Mempengaruhi Throughput Downlink</h2>
@@ -333,7 +334,7 @@
     </div>
 
     <!-- Improvement Methods with Step-by-Step Guide -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="zoom-in">
         <div class="col-md-12">
             <div class="dl-improvement-card">
                 <h2 class="mb-4"><i class="bi bi-arrow-up-circle me-2 text-success"></i>Cara Meningkatkan Throughput Downlink</h2>
@@ -418,7 +419,7 @@
     </div>
 
     <!-- Recommendation Section with Enhanced Visual Appeal -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="dl-recommendation-container">
                 <div class="dl-recommendation-header">
@@ -461,12 +462,12 @@
     </div>
 
     <!-- CTA Section with Gradient Background -->
-    <div class="row mt-5 mb-5">
+    <div class="row mt-5" data-aos="fade-up">
         <div class="col-md-12">
             <div class="dl-cta-section">
                 <div class="dl-cta-content">
-                    <h2 class="dl-cta-title">Analisis Data Throughput Downlink Anda Sekarang</h2>
-                    <p class="dl-cta-description">Unggah file data jaringan Anda untuk mendapatkan analisis throughput downlink dan rekomendasi optimasi yang disesuaikan dengan kebutuhan jaringan Anda.</p>
+                    <h2 class="dl-cta-title">Analisis Data Drive Test Anda Sekarang</h2>
+                    <p class="dl-cta-description">Unggah file data pengujian jaringan Anda untuk mendapatkan rekomendasi optimasi dan prediksi nilai parameter Throughput Downlink yang disesuaikan dengan jenis optimasi jaringan yang direkomendasikan</p>
                     <div class="dl-cta-buttons">
                         <a href="{{ url_for('upload_file') }}" class="btn btn-light dl-cta-button-primary">
                             <i class="bi bi-upload me-2"></i>Unggah File Sekarang
@@ -477,7 +478,12 @@
                     </div>
                 </div>
                 <div class="dl-cta-decoration">
-                    <div class="dl-cta-wave"></div>
+                    <div class="dl-cta-wave">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="width:100%; height:100%;">
+                            <path fill="#ffffff" fill-opacity="0.3"
+                              d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L0,320Z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
