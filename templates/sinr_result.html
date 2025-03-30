@@ -5,7 +5,7 @@
     <!-- Header Section -->
     <div class="row mt-4" data-aos="fade-up">
         <div class="col-md-12">
-            <h1 class="sinr-title section-title">Hasil Analisis sinr</h1>
+            <h1 class="sinr-title section-title">Hasil Analisis SINR</h1>
             <div class="sinr-site-info">
                 <span class="sinr-site-badge"><i class="bi bi-geo-alt-fill"></i> Site ID: {{ site_id }} - {{ alamat_site }}</span>
             </div>
@@ -22,7 +22,7 @@
             <div class="card sinr-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-header sinr-card-header">
                     <h3 class="card-title text-center mb-0">
-                        <i class="bi bi-reception-4"></i> sinr Analysis
+                        <i class="bi bi-reception-4"></i> SINR Analysis
                     </h3>
                 </div>
                 <div class="card-body">
@@ -41,34 +41,34 @@
                                         <thead>
                                             <tr>
                                                 <th>Kategori</th>
-                                                <th>Batas Nilai sinr (dBm)</th>
+                                                <th>Batas Nilai SINR (dB)</th>
                                                 <th>Jumlah Titik</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="sinr-excellent">
                                                 <td><i class="bi bi-reception-4"></i> Sangat Bagus</td>
-                                                <td>≥ -85</td>
+                                                <td>≥ 10 s/d 50</td>
                                                 <td>{{ sinr_stats.before.sangat_bagus }}</td>
                                             </tr>
                                             <tr class="sinr-good">
                                                 <td><i class="bi bi-reception-3"></i> Bagus</td>
-                                                <td>≥ -95 s/d -85</td>
+                                                <td>≥ 5 s/d 10</td>
                                                 <td>{{ sinr_stats.before.bagus }}</td>
                                             </tr>
                                             <tr class="sinr-normal">
                                                 <td><i class="bi bi-reception-2"></i> Normal</td>
-                                                <td>≥ -100 s/d -95</td>
+                                                <td>≥ 0 s/d 5</td>
                                                 <td>{{ sinr_stats.before.normal }}</td>
                                             </tr>
                                             <tr class="sinr-poor">
                                                 <td><i class="bi bi-reception-1"></i> Buruk</td>
-                                                <td>≥ -105 s/d -100</td>
+                                                <td>≥ -5 s/d 0</td>
                                                 <td>{{ sinr_stats.before.buruk }}</td>
                                             </tr>
                                             <tr class="sinr-bad">
                                                 <td><i class="bi bi-reception-0"></i> Sangat Buruk</td>
-                                                <td>≥ -150 s/d -105</td>
+                                                <td>≥ -20 s/d -5</td>
                                                 <td>{{ sinr_stats.before.sangat_buruk }}</td>
                                             </tr>
                                         </tbody>
@@ -94,34 +94,34 @@
                                         <thead>
                                             <tr>
                                                 <th>Kategori</th>
-                                                <th>Batas Nilai sinr (dBm)</th>
+                                                <th>Batas Nilai SINR (dBm)</th>
                                                 <th>Jumlah Titik</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="sinr-excellent">
                                                 <td><i class="bi bi-reception-4"></i> Sangat Bagus</td>
-                                                <td>≥ -85</td>
+                                                <td>≥ 10 s/d 50</td>
                                                 <td>{{ sinr_stats.after.sangat_bagus }}</td>
                                             </tr>
                                             <tr class="sinr-good">
                                                 <td><i class="bi bi-reception-3"></i> Bagus</td>
-                                                <td>≥ -95 s/d -85</td>
+                                                <td>≥ 5 s/d 10</td>
                                                 <td>{{ sinr_stats.after.bagus }}</td>
                                             </tr>
                                             <tr class="sinr-normal">
                                                 <td><i class="bi bi-reception-2"></i> Normal</td>
-                                                <td>≥ -100 s/d -95</td>
+                                                <td>≥ 0 s/d 5</td>
                                                 <td>{{ sinr_stats.after.normal }}</td>
                                             </tr>
                                             <tr class="sinr-poor">
                                                 <td><i class="bi bi-reception-1"></i> Buruk</td>
-                                                <td>≥ -105 s/d -100</td>
+                                                <td>≥ -5 s/d 0</td>
                                                 <td>{{ sinr_stats.after.buruk }}</td>
                                             </tr>
                                             <tr class="sinr-bad">
                                                 <td><i class="bi bi-reception-0"></i> Sangat Buruk</td>
-                                                <td>≥ -150 s/d -105</td>
+                                                <td>≥ -20 s/d -5</td>
                                                 <td>{{ sinr_stats.after.sangat_buruk }}</td>
                                             </tr>
                                         </tbody>
@@ -231,7 +231,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Distribusi sinr Sebelum Optimasi',
+                    text: 'Distribusi SINR Sebelum Optimasi',
                     font: {
                         size: 14,
                         weight: 'bold'
@@ -283,7 +283,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Distribusi sinr Setelah Optimasi',
+                    text: 'Distribusi SINR Setelah Optimasi',
                     font: {
                         size: 14,
                         weight: 'bold'

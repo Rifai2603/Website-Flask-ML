@@ -26,6 +26,45 @@
     --transition: all 0.3s ease;
 }
 
+/* warna parameter */
+.sangat-bagus {
+  color: #0d6efd;
+}
+.bagus {
+  color: #198754;
+}
+.normal {
+  color: #8ac926;
+}
+.buruk {
+  color: #ffff00;
+}
+.sangat-buruk {
+  color: #dc3545;
+}
+
+/* background warna parameter */
+.bg-sangat-bagus {
+  background-color: #0d6efd;
+  color: white;
+}
+.bg-bagus {
+  background-color: #198754;
+  color: white;
+}
+.bg-normal {
+  background-color: #8ac926;
+  color: white;
+}
+.bg-buruk {
+  background-color: #ffff00;
+  color: rgb(238, 226, 226);
+}
+.bg-sangat-buruk {
+  background-color: #dc3545;
+  color: white;
+}
+
 /* ======= STYLE GLOBAL ======= */
 body {
     display: flex;
@@ -894,59 +933,115 @@ body {
 }
 
 /* ======= HALAMAN HELP ======= */
-/* Mempertahankan styling asli untuk halaman Help */
-.info-section {
-    margin-bottom: 10px;
-}
 
-.info-card {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
-}
-
-.info-card h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
-}
-
+/* Styling untuk langkah-langkah */
 .steps-list {
-    list-style: none;
-    padding: 0;
-    counter-reset: step-counter;
+  position: relative;
 }
 
-.steps-list li {
-    display: flex;
-    margin-bottom: 25px;
-    align-items: flex-start;
+.step-item {
+  position: relative;
+  padding-bottom: 1.5rem;
 }
 
 .step-number {
-    background-color: #7B68EE;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-right: 15px;
-    flex-shrink: 0;
+  background-color: var(--primary-color);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(123, 104, 238, 0.3);
 }
 
 .step-content h4 {
-    margin: 0 0 5px;
-    color: #333;
+  margin-top: 0;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .step-content p {
-    margin: 0;
-    color: #666;
-    font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.step-content a {
+  text-decoration: none;
+}
+
+/* Styling untuk kartu parameter */
+.card-header {
+  font-weight: 600;
+}
+
+.table-responsive {
+  margin-bottom: 0;
+}
+
+/* Styling untuk FAQ */
+.accordion-button:not(.collapsed) {
+  background-color: rgba(123, 104, 238, 0.1);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(123, 104, 238, 0.25);
+}
+
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%237B68EE'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* Custom toggle button untuk accordion */
+.faq-toggle-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  padding: 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* bagian kontak */
+.contact-link {
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.contact-card {
+  transition: all 0.3s ease;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .step-content h4 {
+    font-size: 1.1rem;
+  }
 }
 
 /* ======= RSRP SPECIFIC STYLES ======= */

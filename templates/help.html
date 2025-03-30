@@ -1,44 +1,646 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="info-section">
-        <div class="info-card">
-            <h2>Bagaimana Cara Kerjanya?</h2>
-            <ol class="steps-list">
-                <li>
-                    <span class="step-number">1</span>
-                    <div class="step-content">
-                        <h4>Upload Data CSV</h4>
-                        <p>Unggah file data jaringan dalam format CSV melalui halaman Upload File</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="step-number">2</span>
-                    <div class="step-content">
-                        <h4>Proses Analisis</h4>
-                        <p>Sistem akan menganalisis data dan mengidentifikasi permasalahan jaringan</p>
-                    </div>
-                </li>
-                <li>
-                    <span class="step-number">3</span>
-                    <div class="step-content">
-                        <h4>Dapatkan Rekomendasi</h4>
-                        <p>Terima rekomendasi optimasi yang spesifik untuk meningkatkan performa jaringan</p>
-                    </div>
-                </li>
-            </ol>
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12" data-aos="zoom-in">
+            <h1 class="text-center mb-4">Panduan Penggunaan Sistem</h1>
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                Sistem Rekomendasi Optimasi Jaringan 4G membantu Anda menganalisis data drivetest dan memberikan rekomendasi untuk meningkatkan performa jaringan.
+            </div>
         </div>
     </div>
 
-    <div class="form-group mt-4">
-        <p>File CSV harus memiliki kolom berikut:</p>
-        <ul>
-            <li>Longitude</li>
-            <li>Latitude</li>
-            <li>LTE PCC Serving RSRP(dBm)</li>
-            <li>LTE PCC Serving SINR(dB)</li>
-            <li>LTE DL App Throughput(kbps)</li>
-            <li>LTE UL App Throughput(kbps)</li>
-        </ul>
+    <!-- Langkah-langkah Penggunaan -->
+    <div class="row mb-5" data-aos="zoom-in">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-list-ol me-2"></i>Langkah-langkah Penggunaan</h3>
+                </div>
+                <div class="card-body">
+                    <div class="steps-list">
+                        <div class="step-item d-flex mb-4">
+                            <div class="step-number">1</div>
+                            <div class="step-content ms-3">
+                                <h4>Upload File Data Drivetest</h4>
+                                <p>Unggah file data jaringan dalam format CSV yang diperoleh dari software Genex Assistant melalui halaman <a href="{{ url_for('upload_file') }}">Upload File</a>.</p>
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Isi form Site ID dan Alamat Site
+                                    </small><br>
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Pilih file CSV dari komputer Anda
+                                    </small><br>
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Klik tombol "Analisa" untuk memproses data
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-item d-flex mb-4">
+                            <div class="step-number">2</div>
+                            <div class="step-content ms-3">
+                                <h4>Lihat Hasil Analisis</h4>
+                                <p>Setelah proses analisis selesai, sistem akan menampilkan hasil berupa tabel data dan rekomendasi optimasi jaringan.</p>
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Tabel menampilkan data koordinat, parameter jaringan, dan jenis rekomendasi
+                                    </small><br>
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Ringkasan rekomendasi optimasi ditampilkan di bagian atas hasil
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-item d-flex mb-4">
+                            <div class="step-number">3</div>
+                            <div class="step-content ms-3">
+                                <h4>Download Hasil Analisis</h4>
+                                <p>Anda dapat mengunduh hasil analisis dalam format CSV untuk digunakan lebih lanjut.</p>
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Klik tombol "Download Hasil Analisis" pada halaman hasil
+                                    </small><br>
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>File CSV akan berisi data lengkap hasil analisis
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-item d-flex">
+                            <div class="step-number">4</div>
+                            <div class="step-content ms-3">
+                                <h4>Lihat Detail Parameter</h4>
+                                <p>Untuk melihat detail parameter jaringan, kunjungi menu Parameter 4G.</p>
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Pilih parameter yang ingin dilihat (RSRP, SINR, Throughput DL, Throughput UL)
+                                    </small><br>
+                                    <small class="text-muted">
+                                        <i class="bi bi-arrow-right me-1"></i>Lihat visualisasi peta, tabel, dan grafik perbandingan sebelum dan sesudah optimasi
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Format File CSV -->
+    <div class="row mb-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i>Format File CSV</h3>
+                </div>
+                <div class="card-body">
+                    <p>File CSV yang diunggah harus memiliki format yang sesuai dengan output dari software Genex Assistant dan harus memiliki kolom-kolom berikut:</p>
+                    
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Nama Kolom</th>
+                                    <th>Deskripsi</th>
+                                    <th>Satuan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Longitude</td>
+                                    <td>Koordinat bujur lokasi pengukuran</td>
+                                    <td>Derajat desimal</td>
+                                </tr>
+                                <tr>
+                                    <td>Latitude</td>
+                                    <td>Koordinat lintang lokasi pengukuran</td>
+                                    <td>Derajat desimal</td>
+                                </tr>
+                                <tr>
+                                    <td>LTE PCC Serving RSRP(dBm)</td>
+                                    <td>Reference Signal Received Power</td>
+                                    <td>dBm</td>
+                                </tr>
+                                <tr>
+                                    <td>LTE PCC Serving SINR(dB)</td>
+                                    <td>Signal to Interference plus Noise Ratio</td>
+                                    <td>dB</td>
+                                </tr>
+                                <tr>
+                                    <td>LTE DL App Throughput(kbps)</td>
+                                    <td>Kecepatan unduh data</td>
+                                    <td>kbps</td>
+                                </tr>
+                                <tr>
+                                    <td>LTE UL App Throughput(kbps)</td>
+                                    <td>Kecepatan unggah data</td>
+                                    <td>kbps</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>Penting:</strong> Pastikan nama kolom sesuai dengan format di atas. Sistem akan otomatis mengisi nilai yang kosong dengan nilai median dari data yang ada.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interpretasi Parameter -->
+    <div class="row mb-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-graph-up me-2"></i>Interpretasi Parameter</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4" data-aos="zoom-in">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="bi bi-reception-4 me-2 text-primary"></i>RSRP (Reference Signal Received Power)</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Mengukur kekuatan sinyal yang diterima dari bts.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kategori</th>
+                                                    <th>Nilai (dBm)</th>
+                                                    <th>Kualitas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-primary">
+                                                    <td>Sangat Bagus</td>
+                                                    <td>-85 s/d 0</td>
+                                                    <td><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-success">
+                                                    <td>Bagus</td>
+                                                    <td>-95 s/d -85</td>
+                                                    <td><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Normal</td>
+                                                    <td>-100 s/d -95</td>
+                                                    <td><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star normal"></i><i class="bi bi-star normal"></i></td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td>Buruk</td>
+                                                    <td>-105 s/d -100</td>
+                                                    <td><i class="bi bi-star-fill buruk"></i><i class="bi bi-star-fill buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i></td>
+                                                </tr>
+                                                <tr class="table-danger">
+                                                    <td>Sangat Buruk</td>
+                                                    <td>-150 s/d -105</td>
+                                                    <td><i class="bi bi-star-fill sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4" data-aos="zoom-in">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="bi bi-reception-3 me-2 text-primary"></i>SINR (Signal to Interference plus Noise Ratio)</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Mengukur kualitas sinyal yang diterima relatif terhadap interferensi dan noise.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kategori</th>
+                                                    <th>Nilai (dB)</th>
+                                                    <th>Kualitas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-primary">
+                                                    <td>Sangat Bagus</td>
+                                                    <td>10 s/d 50</td>
+                                                    <td><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-success">
+                                                    <td>Bagus</td>
+                                                    <td>5 s/d 10</td>
+                                                    <td><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Normal</td>
+                                                    <td>0 s/d 5</td>
+                                                    <td><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star normal"></i><i class="bi bi-star normal"></i></td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td>Buruk</td>
+                                                    <td>-5 s/d 0</td>
+                                                    <td><i class="bi bi-star-fill buruk"></i><i class="bi bi-star-fill buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i></td>
+                                                </tr>
+                                                <tr class="table-danger">
+                                                    <td>Sangat Buruk</td>
+                                                    <td>-20 s/d -5</td>
+                                                    <td><i class="bi bi-star-fill sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4" data-aos="zoom-in">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="bi bi-download me-2 text-primary"></i>Throughput Downlink</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Mengukur kecepatan unduh data dari jaringan ke perangkat.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kategori</th>
+                                                    <th>Nilai (Kbps)</th>
+                                                    <th>Kualitas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-primary">
+                                                    <td>Sangat Bagus</td>
+                                                    <td>20.000 s/d 300.000</td>
+                                                    <td><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-success">
+                                                    <td>Bagus</td>
+                                                    <td>10.000 s/d 20.000</td>
+                                                    <td><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Normal</td>
+                                                    <td>5.000 s/d 10.000</td>
+                                                    <td><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star normal"></i><i class="bi bi-star normal"></i></td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td>Buruk</td>
+                                                    <td>3.000 s/d 5.000</td>
+                                                    <td><i class="bi bi-star-fill buruk"></i><i class="bi bi-star-fill buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i></td>
+                                                </tr>
+                                                <tr class="table-danger">
+                                                    <td>Sangat Buruk</td>
+                                                    <td>0 s/d 3.000</td>
+                                                    <td><i class="bi bi-star-fill sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4" data-aos="zoom-in">
+                            <div class="card h-100">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0"><i class="bi bi-upload me-2 text-primary"></i>Throughput Uplink</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>Mengukur kecepatan unggah data dari perangkat ke jaringan.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kategori</th>
+                                                    <th>Nilai (Kbps)</th>
+                                                    <th>Kualitas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-primary">
+                                                    <td>Sangat Bagus</td>
+                                                    <td>20.000 s/d 300.000</td>
+                                                    <td><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i><i class="bi bi-star-fill sangat-bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-success">
+                                                    <td>Bagus</td>
+                                                    <td>10.000 s/d 20.000</td>
+                                                    <td><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star-fill bagus"></i><i class="bi bi-star bagus"></i></td>
+                                                </tr>
+                                                <tr class="table-info">
+                                                    <td>Normal</td>
+                                                    <td>5.000 s/d 10.000</td>
+                                                    <td><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star-fill normal"></i><i class="bi bi-star normal"></i><i class="bi bi-star normal"></i></td>
+                                                </tr>
+                                                <tr class="table-warning">
+                                                    <td>Buruk</td>
+                                                    <td>1.000 s/d 5.000</td>
+                                                    <td><i class="bi bi-star-fill buruk"></i><i class="bi bi-star-fill buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i><i class="bi bi-star buruk"></i></td>
+                                                </tr>
+                                                <tr class="table-danger">
+                                                    <td>Sangat Buruk</td>
+                                                    <td>0 s/d 1.000</td>
+                                                    <td><i class="bi bi-star-fill sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i><i class="bi bi-star sangat-buruk"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualisasi Hasil -->
+    <div class="row mb-5" data-aos="zoom-in">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-map me-2"></i>Visualisasi Hasil</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="mb-3">Peta Persebaran</h4>
+                            <p>Sistem menampilkan peta persebaran titik pengukuran dengan warna yang menunjukkan kualitas parameter jaringan.</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3" data-aos="fade-right">
+                                    <div class="card">
+                                        <div class="card-header bg-warning text-white text-center">
+                                            <i class="bi bi-arrow-left-circle me-2"></i>Sebelum Optimasi
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="{{ url_for('static', filename='images/map_sebelum_optimasi.png') }}" alt="Peta Sebelum Optimasi" class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" data-aos="fade-left">
+                                    <div class="card">
+                                        <div class="card-header bg-success text-white text-center">
+                                            <i class="bi bi-arrow-right-circle me-2"></i>Setelah Optimasi
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="{{ url_for('static', filename='images/map_sesudah_optimasi.png') }}" alt="Peta Setelah Optimasi" class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <p><strong>Fitur Peta:</strong></p>
+                                <ul>
+                                    <li>Perbandingan sebelum dan sesudah optimasi</li>
+                                    <li>Warna titik menunjukkan kualitas parameter:
+                                        <span class="badge bg-sangat-bagus">Sangat Bagus</span>
+                                        <span class="badge bg-bagus">Bagus</span>
+                                        <span class="badge bg-normal">Normal</span>
+                                        <span class="badge bg-buruk">Buruk</span>
+                                        <span class="badge bg-sangat-buruk">Sangat Buruk</span>
+                                    </li>
+                                    <li>Popup informasi detail saat titik diklik</li>
+                                    <li>Zoom in/out untuk melihat area tertentu</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mb-3">Grafik Distribusi</h4>
+                            <p>Sistem menampilkan grafik pie chart yang menunjukkan distribusi kualitas parameter jaringan.</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3" data-aos="fade-right">
+                                    <div class="card">
+                                        <div class="card-header bg-warning text-white text-center">
+                                            <i class="bi bi-arrow-left-circle me-2"></i>Sebelum Optimasi
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="{{ url_for('static', filename='images/grafik_sebelum_optimasi.png') }}" alt="Grafik Sebelum Optimasi" class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3" data-aos="fade-left">
+                                    <div class="card">
+                                        <div class="card-header bg-success text-white text-center">
+                                            <i class="bi bi-arrow-right-circle me-2"></i>Setelah Optimasi
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="{{ url_for('static', filename='images/grafik_sesudah_optimasi.png') }}" alt="Grafik Setelah Optimasi" class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <p><strong>Fitur Grafik:</strong></p>
+                                <ul>
+                                    <li>Perbandingan distribusi sebelum dan sesudah optimasi</li>
+                                    <li>Persentase untuk setiap kategori kualitas</li>
+                                    <li>Warna yang konsisten dengan peta dan tabel</li>
+                                    <li>Legenda yang menjelaskan kategori kualitas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="row mb-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-question-circle me-2"></i>Pertanyaan Umum (FAQ)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading1">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+                                    Format file apa yang didukung oleh sistem?
+                                </button>
+                            </h2>
+                            <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sistem mendukung file dalam format CSV (Comma Separated Values) yang dihasilkan dari software Genex Assistant. File harus memiliki kolom-kolom yang diperlukan seperti Longitude, Latitude, RSRP, SINR, Throughput DL, dan Throughput UL.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                    Bagaimana cara mendapatkan file data drivetest dari Genex Assistant?
+                                </button>
+                            </h2>
+                            <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Untuk mendapatkan file data drivetest dari Genex Assistant, ikuti langkah-langkah berikut:
+                                    <ol>
+                                        <li>Buka software Genex Assistant</li>
+                                        <li>Impor data drivetest yang telah dikumpulkan</li>
+                                        <li>Pilih menu "Export" atau "Export to CSV"</li>
+                                        <li>Pastikan semua parameter yang diperlukan (Longitude, Latitude, RSRP, SINR, Throughput DL, Throughput UL) dicentang untuk diekspor</li>
+                                        <li>Simpan file CSV ke komputer Anda</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                    Apa yang harus dilakukan jika data saya memiliki nilai yang kosong?
+                                </button>
+                            </h2>
+                            <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sistem secara otomatis akan menangani nilai yang kosong (missing values) pada data Anda. Untuk setiap parameter (RSRP, SINR, Throughput DL, Throughput UL), sistem akan menghitung nilai median dari data yang tersedia dan menggunakan nilai tersebut untuk mengisi nilai yang kosong. Namun, untuk kolom Longitude dan Latitude, baris dengan nilai kosong akan dihapus karena koordinat lokasi sangat penting untuk analisis.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                    Bagaimana cara membaca hasil rekomendasi optimasi?
+                                </button>
+                            </h2>
+                            <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Hasil rekomendasi optimasi ditampilkan dalam bentuk ringkasan dan detail per titik pengukuran:
+                                    <ul>
+                                        <li><strong>Ringkasan:</strong> Menampilkan jenis rekomendasi optimasi yang paling banyak muncul untuk site yang dianalisis.</li>
+                                        <li><strong>Detail per titik:</strong> Pada tabel hasil, kolom "Jenis Rekomendasi Optimasi" menunjukkan rekomendasi spesifik untuk setiap titik pengukuran.</li>
+                                        <li><strong>Perbandingan parameter:</strong> Pada halaman parameter, Anda dapat melihat perbandingan nilai parameter sebelum dan setelah optimasi untuk mengevaluasi potensi peningkatan performa jaringan.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqHeading5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                                    Apakah saya bisa menganalisis beberapa site sekaligus?
+                                </button>
+                            </h2>
+                            <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Saat ini, sistem hanya mendukung analisis satu site dalam satu waktu. Untuk menganalisis site lain, Anda perlu menyelesaikan analisis site saat ini terlebih dahulu, kemudian klik tombol "Analisa Baru" untuk memulai analisis site berikutnya. Pastikan Anda telah mengunduh hasil analisis site sebelumnya jika diperlukan, karena data akan dihapus saat memulai analisis baru.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontak Bantuan -->
+    <div class="row" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-headset me-2"></i>Butuh Bantuan Lebih Lanjut?</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-4">Jika Anda memiliki pertanyaan atau mengalami masalah yang tidak tercakup dalam panduan ini, silakan hubungi tim dukungan kami.</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary contact-card">
+                                <div class="card-body">
+                                    <i class="bi bi-linkedin text-primary fs-1 mb-3"></i>
+                                    <h5>Linkedin</h5>
+                                    <a href="https://www.linkedin.com/in/ahmadrifai26" target="_blank" class="contact-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Klik untuk mengunjungi profil">www.linkedin.com/in/ahmadrifai26</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary contact-card">
+                                <div class="card-body">
+                                    <i class="bi bi-envelope-fill text-primary fs-1 mb-3"></i>
+                                    <h5>Email</h5>
+                                    <a href="mailto:rifai656.ar@gmail.com" class="contact-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Klik untuk mengirim email">rifai656.ar@gmail.com</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary contact-card">
+                                <div class="card-body">
+                                    <i class="bi bi-telephone-fill text-primary fs-1 mb-3"></i>
+                                    <h5>Telepon</h5>
+                                    <a href="tel:+6281290270857" class="contact-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Klik untuk menelepon">(+62)812-9027-0857</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    
+{% block scripts %}
+<script>
+        // Script untuk animasi scroll pada langkah-langkah
+        document.addEventListener('DOMContentLoaded', function() {            
+            // Inisialisasi tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+            
+            // Tambahkan efek hover pada kartu kontak
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow');
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow');
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Tambahkan efek hover pada link kontak
+            const contactLinks = document.querySelectorAll('.contact-link');
+            contactLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.color = '#7B68EE';
+                    this.style.fontWeight = 'bold';
+                    this.style.transition = 'all ease';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.color = '';
+                    this.style.fontWeight = '';
+                });
+            });
+        });
+</script>
 {% endblock %}
