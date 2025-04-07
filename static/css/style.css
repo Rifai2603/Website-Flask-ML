@@ -1,7 +1,8 @@
 /* Debugging */
-/* {
+/* * {
     outline: 1px solid red;
-/}
+  } 
+*/
 
 /* ======= VARIABEL WARNA DAN UKURAN ======= */
 :root {
@@ -873,67 +874,252 @@ body {
 }
 
 /* ======= HALAMAN ABOUT ======= */
-/* Mempertahankan styling asli untuk halaman About */
+/* General Styling */
+.page-title {
+  color: #4e73df;
+  font-weight: 700;
+  position: relative;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.title-underline {
+  height: 4px;
+  width: 80px;
+  background: linear-gradient(90deg, #4e73df, #36b9cc);
+  margin: 0 auto 2rem;
+  border-radius: 2px;
+}
+
 .section-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 24px;
-    color: #333;
-    position: relative;
+  color: #4e73df;
+  font-weight: 600;
+  border-bottom: 2px solid #f8f9fc;
+  padding-bottom: 10px;
+  position: relative;
 }
 
 .section-title:after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background-color: #7B68EE;
-    margin: 15px auto 0;
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background-color: #4e73df;
 }
 
-.features-section {
-    margin-bottom: 60px;
+/* Card Styling */
+.hover-card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
+/* Feature Cards */
 .feature-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 25px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(78, 115, 223, 0.1) !important;
 }
 
 .feature-icon {
-    color: #7B68EE;
-    margin-bottom: 15px;
+  transition: all 0.3s ease;
 }
 
-.feature-card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
+.feature-card:hover .feature-icon {
+  background-color: #4e73df !important;
 }
 
-.feature-card p {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
+.feature-card:hover .feature-icon i {
+  color: white !important;
+}
+
+.feature-title {
+  font-weight: 600;
+  color: #2e59d9;
+  margin-bottom: 12px;
+}
+
+/* ML Features */
+.ml-feature {
+  transition: all 0.3s ease;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.ml-feature:hover {
+  background-color: #f8f9fc;
+}
+
+.icon-container {
+  transition: all 0.3s ease;
+}
+
+.ml-feature:hover .icon-container {
+  background-color: #4e73df !important;
+}
+
+.ml-feature:hover .icon-container i {
+  color: white !important;
+}
+
+/* Benefits List */
+.benefit-list {
+  margin-left: 10px;
+}
+
+.benefit-item {
+  transition: all 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.benefit-item:hover {
+  background-color: #f8f9fc;
+  transform: translateX(5px);
+}
+
+/* Timeline Styling */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, #4e73df 0%, #36b9cc 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -40px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 0 4px white, 0 0 0 5px rgba(78, 115, 223, 0.2);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+  transform: scale(1.2);
+}
+
+.timeline-content {
+  padding: 15px 20px;
+  background-color: #f8f9fc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateX(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-title {
+  color: #4e73df;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Developer Section */
+.developer-avatar {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 5px rgba(78, 115, 223, 0.2);
+  transition: all 0.3s ease;
+}
+
+.developer-name {
+  color: #4e73df;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.developer-bio {
+  line-height: 1.7;
+}
+
+.contact-btn {
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(78, 115, 223, 0.2);
+}
+
+/* Styling untuk foto developer */
+.developer-photo-container {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 4px solid #fff;
+  position: relative;
+}
+
+.developer-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .timeline {
+      padding-left: 30px;
+  }
+  
+  .timeline-marker {
+      left: -30px;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+  }
+  
+  .developer-avatar {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+  }
 }
 
 /* ======= HALAMAN HELP ======= */
-
 /* Styling untuk langkah-langkah */
 .steps-list {
   position: relative;
